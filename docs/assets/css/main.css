@@ -2673,6 +2673,7 @@ input, select, textarea {
 			.features article .image img {
 				display: block;
 				width: 100%;
+    			outline: solid #213948;
 			}
 
 		.features article .inner {
