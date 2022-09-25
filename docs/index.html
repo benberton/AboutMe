@@ -118,8 +118,8 @@
 									</div>
 								</div>
 							</section>
-
 						<!-- Four -->
+						<form id="fcf-form-id" class="fcf-form-class" method="post" action="contact-form-process.php"></form>
 							<section id="four">
 								<div class="container">
 									<h3>Contact Me</h3>
@@ -127,13 +127,14 @@
 									<!-- <p>Integer eu ante ornare amet commetus vestibulum blandit integer in curae ac faucibus integer non. Adipiscing cubilia elementum integer. Integer eu ante ornare amet commetus.</p> -->
 									<form method="post" action="#">
 										<div class="row gtr-uniform">
-											<div class="col-6 col-12-xsmall"><input type="text" name="name" id="name" placeholder="Name" /></div>
-											<div class="col-6 col-12-xsmall"><input type="email" name="email" id="email" placeholder="Email" /></div>
-											<div class="col-12"><input type="text" name="subject" id="subject" placeholder="Subject" /></div>
-											<div class="col-12"><textarea name="message" id="message" placeholder="Message" rows="6"></textarea></div>
+											<div class="col-6 col-12-xsmall"><input type="text" name="Name" id="Name" placeholder="Name" /></div>
+											<div class="col-6 col-12-xsmall"><input type="email" name="Email" id="Email" placeholder="Email" /></div>
+											<div class="col-12"><input type="text" name="Subject" id="Subject" placeholder="Subject" /></div>
+											<div class="col-12"><textarea name="Message" id="Message" placeholder="Message" rows="6"></textarea></div>
 											<div class="col-12">
 												<ul class="actions">
-													<!-- <li><input type="submit" class="primary" value="Send Message" /></li> -->
+									
+													<li><input id="" type="button" class="primary" onclick=sendEmail() value="Send Message" /></li>
 													<li><input type="reset" value="Reset Form" /></li>
 												</ul>
 											</div>
@@ -143,6 +144,26 @@
 							
 							</section>
 
+							<script>
+								function sendEmail()
+								{
+									var address = "bberton@zagmail.gonzaga.edu";
+									
+									var sub = document.getElementById("Subject").value;
+
+									
+									var bod = "Hello,%0d%0a%0d%0a" + String(document.getElementById("Message").value)
+									bod +=  "%0d%0a%0d%0a" + "Thanks," + "%0d%0a" + String(document.getElementById("Name").value)
+									bod +=  "%0d%0a%0d%0a(From " + document.getElementById("Email").value + ")"
+
+									if(address == true) {
+										window.location.assign("mailto:bberton@outlook.com?Subject=" + sub + "&body=" + bod + "");
+									}
+									else {
+										window.location.assign("mailto:bberton@outlook.com?Subject=" + sub + "&body=" + bod + "");
+									}
+								}
+							</script>
 						<!-- Five -->
 						<!--
 							<section id="five">
