@@ -1,0 +1,726 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<title>Ben Berton - Innovation Consultant & Developer</title>
+		<link rel="icon" href="images/favicon.png">
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="description" content="Ben Berton - ETH Zürich graduate student specializing in technology and policy.">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+		<style>
+			:root {
+				--primary-color: #4a90e2;
+				--secondary-color: #2c3e50;
+				--accent-color: #e74c3c;
+				--light-bg: #f8f9fa;
+				--dark-text: #2c3e50;
+			}
+
+			/* Hero Section Enhancements */
+			#header {
+				background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+			}
+
+			#header header h1 {
+				font-size: 2.5em;
+				font-weight: 700;
+				color: #fff;
+				margin-bottom: 0.3em;
+				text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+			}
+
+			#header header p {
+				font-size: 1.1em;
+				color: rgba(255,255,255,0.95);
+				line-height: 1.6;
+			}
+
+			.image.avatar img {
+				border: 4px solid rgba(255,255,255,0.9);
+				box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+			}
+
+			/* Section Headers */
+			section h2 {
+				font-size: 2.5em;
+				color: var(--secondary-color);
+				border-bottom: 3px solid var(--primary-color);
+				padding-bottom: 0.5em;
+				margin-bottom: 1.5em;
+			}
+
+			section h3 {
+				color: var(--primary-color);
+				font-size: 1.8em;
+				margin-bottom: 0.5em;
+			}
+
+			section h4 {
+				color: var(--secondary-color);
+				font-size: 1.3em;
+			}
+
+			/* Card-style Features */
+			.features article {
+				background: #fff;
+				border-radius: 12px;
+				padding: 2em;
+				box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+				transition: transform 0.3s ease, box-shadow 0.3s ease;
+				margin-bottom: 2em;
+			}
+
+			.features article:hover {
+				transform: translateY(-5px);
+				box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+			}
+
+			/* Timeline Style for Experience */
+			.experience-timeline {
+				position: relative;
+				padding-left: 2em;
+			}
+
+			.experience-timeline::before {
+				content: '';
+				position: absolute;
+				left: 0;
+				top: 0;
+				bottom: 0;
+				width: 3px;
+				background: linear-gradient(to bottom, var(--primary-color), var(--accent-color));
+			}
+
+			.experience-timeline article {
+				position: relative;
+				margin-bottom: 2.5em;
+			}
+
+			.experience-timeline article::before {
+				content: '';
+				position: absolute;
+				left: -2.6em;
+				top: 0.5em;
+				width: 16px;
+				height: 16px;
+				border-radius: 50%;
+				background: var(--primary-color);
+				border: 3px solid #fff;
+				box-shadow: 0 0 0 3px var(--primary-color);
+			}
+
+			/* Stats/Highlights Box */
+			.stats-box {
+				background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+				color: #fff;
+				padding: 2em;
+				border-radius: 12px;
+				margin: 2em 0;
+				text-align: center;
+			}
+
+			.stats-box h3 {
+				color: #fff;
+				margin-bottom: 1em;
+			}
+
+			.stat-item {
+				display: inline-block;
+				margin: 0 2em;
+				padding: 1em;
+			}
+
+			.stat-number {
+				font-size: 2.5em;
+				font-weight: 700;
+				display: block;
+			}
+
+			.stat-label {
+				font-size: 0.9em;
+				opacity: 0.9;
+			}
+
+			/* Skill Pills */
+			.skill-pills {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.8em;
+				margin: 1.5em 0;
+			}
+
+			.skill-pill {
+				background: var(--primary-color);
+				color: #fff;
+				padding: 0.6em 1.2em;
+				border-radius: 25px;
+				font-size: 0.9em;
+				font-weight: 600;
+				transition: all 0.3s ease;
+			}
+
+			.skill-pill:hover {
+				background: var(--accent-color);
+				transform: scale(1.05);
+			}
+
+			/* Project Cards */
+			.project-card {
+				background: #fff;
+				border-radius: 12px;
+				overflow: hidden;
+				box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+				transition: all 0.3s ease;
+			}
+
+			.project-card:hover {
+				transform: translateY(-8px);
+				box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+			}
+
+			.project-card .image {
+				overflow: hidden;
+				height: 250px;
+			}
+
+			.project-card .image img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				transition: transform 0.5s ease;
+			}
+
+			.project-card:hover .image img {
+				transform: scale(1.1);
+			}
+
+			/* Button Enhancements */
+			.button.primary {
+				background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+				border: none;
+				font-weight: 600;
+				padding: 1em 2.5em;
+				font-size: 1.1em;
+				transition: all 0.3s ease;
+			}
+
+			.button.primary:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 8px 16px rgba(102, 126, 234, 0.4);
+			}
+
+			/* Contact Section */
+			#six {
+				background: var(--light-bg);
+			}
+
+			.contact-info {
+				background: #fff;
+				padding: 2em;
+				border-radius: 12px;
+				box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+			}
+
+			/* Icon Styling */
+			.feature-icons li {
+				font-weight: 600;
+				color: var(--secondary-color);
+			}
+
+			.feature-icons li::before {
+				color: var(--primary-color);
+			}
+
+			/* Smooth Animations */
+			section {
+				animation: fadeInUp 0.6s ease-out;
+			}
+
+			@keyframes fadeInUp {
+				from {
+					opacity: 0;
+					transform: translateY(30px);
+				}
+				to {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+
+			/* Responsive adjustments */
+			@media screen and (max-width: 768px) {
+				.stat-item {
+					display: block;
+					margin: 1em 0;
+				}
+				
+				#header header h1 {
+					font-size: 2em;
+				}
+			}
+		</style>
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<section id="header">
+				<header>
+					<span class="image avatar"><img src="images/headshot.jpg" alt="Ben Berton" /></span>
+					<h1 id="logo">Ben Berton</h1>
+					<p>Graduate Student at ETH Zürich<br>
+					Former Innovation Consultant<br>
+					Full-Stack Developer & Problem Solver</p>
+				</header>
+				<nav id="nav">
+					<ul>
+						<li><a href="#one" class="active">About</a></li>
+						<li><a href="#two">Education</a></li>
+						<li><a href="#three">Experience</a></li>
+						<li><a href="#four">Skills</a></li>
+						<li><a href="#five">Projects</a></li>
+						<li><a href="#six">Contact</a></li>
+					</ul>
+				</nav>
+				<footer>
+					<ul class="icons">
+						<li class="rescale"><a href="https://github.com/benberton" target="_blank" class="icon brands fa-github" aria-label="GitHub"><span class="label">Github</span></a></li>
+						<li class="rescale"><a href="https://www.linkedin.com/in/ben-berton" target="_blank" class="icon brands fa-linkedin" aria-label="LinkedIn"><span class="label">Linkedin</span></a></li>
+						<li class="rescale"><a href="mailto:bberton@ethz.ch" class="icon solid fa-envelope" aria-label="Email"><span class="label">Send Email</span></a></li>
+					</ul>
+				</footer>
+			</section>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- One -->
+							<section id="one">
+								<div class="image main" data-position="center">
+									<img src="images/gonzaga.png" alt="Background" />
+								</div>
+								<div class="container">
+									<header class="major">
+										<h2>Hello, I'm Ben 👋</h2>
+										<p>A passionate technologist bridging the gap between innovation and impact</p>
+									</header>
+									
+									<p>I'm currently pursuing a Master's degree in <strong>Science, Technology and Policy</strong> at <strong>ETH Zürich</strong>, one of the world's leading technical universities. My journey combines technical expertise in software development with a strategic understanding of how technology shapes our world.</p>
+									
+									<p>With professional experience as an <strong>Innovation Consultant at Ryan LLC</strong>, I've developed AI-powered solutions, automated complex workflows, and built full-stack applications that solve real business challenges. I graduated <strong>Summa Cum Laude</strong> from Gonzaga University with a 3.97 GPA, and I bring that same dedication to everything I do.</p>
+
+									<div class="stats-box">
+										<h3>Quick Facts</h3>
+										<div class="stat-item">
+											<span class="stat-number">3.97</span>
+											<span class="stat-label">GPA (Summa Cum Laude)</span>
+										</div>
+										<div class="stat-item">
+											<span class="stat-number">1+ Year</span>
+											<span class="stat-label">Consulting Experience</span>
+										</div>
+										<div class="stat-item">
+											<span class="stat-number">7,500+</span>
+											<span class="stat-label">Students Impacted</span>
+										</div>
+									</div>
+
+									<p>I'm passionate about using technology to create positive change, whether it's through automation, AI applications, or innovative web solutions. When I'm not coding or studying policy, you'll find me exploring the intersection of technology and society, working on personal projects, or learning German.</p>
+									
+									<ul class="actions">
+										<li><a href="assets/Ben Berton CV Spring 2026.pdf" class="button primary icon solid fa-download" target="_blank">Download My Resume</a></li>
+										<li><a href="#six" class="button">Get In Touch</a></li>
+									</ul>
+								</div>
+							</section>
+
+						<!-- Two -->
+							<section id="two">
+								<div class="container">
+									<h2>🎓 Education</h2>
+									<div class="features">
+										<article>
+											<div class="inner">
+												<div style="display: flex; justify-content: space-between; align-items: start; flex-wrap: wrap;">
+													<div>
+														<h3>ETH Zürich</h3>
+														<h4>MSc in Science, Technology and Policy</h4>
+														<p style="color: #667eea; font-weight: 600;">Computer Science Minor</p>
+													</div>
+													<div style="text-align: right;">
+														<p><strong>Zürich, Switzerland</strong><br>
+														<em>September 2025 - Present</em></p>
+													</div>
+												</div>
+												<p>Exploring the critical intersection of technology development and policy-making. Studying how technological innovations impact society and how effective governance can shape responsible innovation.</p>
+											</div>
+										</article>
+										<article>
+											<div class="inner">
+												<div style="display: flex; justify-content: space-between; align-items: start; flex-wrap: wrap;">
+													<div>
+														<h3>Gonzaga University</h3>
+														<h4>B.A. in Computer Science</h4>
+														<p style="color: #e74c3c; font-weight: 600;">GPA: 3.97/4.00 | Summa Cum Laude</p>
+													</div>
+													<div style="text-align: right;">
+														<p><strong>Spokane, WA</strong><br>
+														<em>August 2020 - May 2024</em></p>
+													</div>
+												</div>
+												<p><strong>Achievements:</strong> President's List (All Semesters) | Graduated with highest honors</p>
+												<p>Built a strong foundation in computer science fundamentals, software engineering, and project management while maintaining academic excellence.</p>
+											</div>
+										</article>
+									</div>
+								</div>
+							</section>
+
+						<!-- Three -->
+							<section id="three">
+								<div class="container">
+									<h2>💼 Professional Experience</h2>
+									<div class="experience-timeline">
+										<article>
+											<div class="inner">
+												<div style="display: flex; justify-content: space-between; align-items: start; flex-wrap: wrap; margin-bottom: 0.5em;">
+													<div>
+														<h3>Ryan LLC</h3>
+														<h4>Consultant, Innovation</h4>
+													</div>
+													<p style="color: #666; font-style: italic;">August 2024 – September 2025</p>
+												</div>
+												<p style="color: #667eea; font-weight: 600; margin-bottom: 1em;">📍 Bellevue, WA</p>
+												<ul>
+													<li><strong>Automation & Efficiency:</strong> Developed Python and Alteryx solutions that streamlined complex workflows, reducing manual effort across multiple business units</li>
+													<li><strong>Full-Stack Development:</strong> Designed and implemented relational databases (SQL) and full-stack applications in Decisions, creating seamless data pipelines</li>
+													<li><strong>AI Innovation:</strong> Contributed to cutting-edge AI proof of concept for R&D tax credit eligibility assessment, aligning technical solutions with regulatory compliance</li>
+												</ul>
+											</div>
+										</article>
+										
+										<article>
+											<div class="inner">
+												<div style="display: flex; justify-content: space-between; align-items: start; flex-wrap: wrap; margin-bottom: 0.5em;">
+													<div>
+														<h3>Kaiser Aluminum</h3>
+														<h4>Developer & Team Lead, Capstone Project</h4>
+													</div>
+													<p style="color: #666; font-style: italic;">September 2023 - May 2024</p>
+												</div>
+												<p style="color: #667eea; font-weight: 600; margin-bottom: 1em;">📍 Spokane, WA</p>
+												<ul>
+													<li><strong>Team Leadership:</strong> Led a cross-functional team to design and develop a real-time OCR system for factory floor monitoring</li>
+													<li><strong>Technical Implementation:</strong> Built a full-stack web application using Node.js, MariaDB, and HTML/CSS that integrated seamlessly with existing production workflows</li>
+													<li><strong>Real-World Impact:</strong> Delivered a production-ready system that improved quality control and operational efficiency</li>
+												</ul>
+											</div>
+										</article>
+										
+										<article>
+											<div class="inner">
+												<div style="display: flex; justify-content: space-between; align-items: start; flex-wrap: wrap; margin-bottom: 0.5em;">
+													<div>
+														<h3>Ryan LLC</h3>
+														<h4>Intern, Innovation</h4>
+													</div>
+													<p style="color: #666; font-style: italic;">May - August 2023</p>
+												</div>
+												<p style="color: #667eea; font-weight: 600; margin-bottom: 1em;">📍 Bellevue, WA</p>
+												<ul>
+													<li><strong>AI Development:</strong> Developed an AI-powered grant drafting assistant using OpenAI's language model to support public funding and R&D tax credit applications</li>
+													<li><strong>Leadership Recognition:</strong> Project received recognition from senior leadership for its contribution to the firm's AI integration initiatives</li>
+													<li><strong>Innovation:</strong> Demonstrated ability to rapidly prototype and deliver impactful solutions in a professional environment</li>
+												</ul>
+											</div>
+										</article>
+									</div>
+								</div>
+							</section>
+
+						<!-- Four -->
+							<section id="four">
+								<div class="container">
+									<h2>🛠️ Technical Skills</h2>
+									
+									<div style="margin-bottom: 3em;">
+										<h3 style="margin-bottom: 1em;">Programming Languages</h3>
+										<div class="skill-pills">
+											<span class="skill-pill">Python</span>
+											<span class="skill-pill">JavaScript</span>
+											<span class="skill-pill">C++</span>
+											<span class="skill-pill">Java</span>
+											<span class="skill-pill">SQL</span>
+											<span class="skill-pill">HTML/CSS</span>
+										</div>
+									</div>
+
+									<div style="margin-bottom: 3em;">
+										<h3 style="margin-bottom: 1em;">Tools & Platforms</h3>
+										<div class="skill-pills">
+											<span class="skill-pill">Alteryx</span>
+											<span class="skill-pill">Power BI</span>
+											<span class="skill-pill">Figma</span>
+											<span class="skill-pill">Decisions</span>
+											<span class="skill-pill">Git/GitHub</span>
+											<span class="skill-pill">MariaDB</span>
+											<span class="skill-pill">Node.js</span>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-6 col-12-medium">
+											<div class="features">
+												<article>
+													<h4>💻 Full-Stack Development</h4>
+													<p>Experience building end-to-end web applications with modern frameworks, databases, and RESTful APIs. Comfortable with both frontend and backend development.</p>
+												</article>
+											</div>
+										</div>
+										<div class="col-6 col-12-medium">
+											<div class="features">
+												<article>
+													<h4>🤖 AI & Automation</h4>
+													<p>Hands-on experience with AI integration, OpenAI APIs, and building automation solutions that streamline complex business processes.</p>
+												</article>
+											</div>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-6 col-12-medium">
+											<div class="features">
+												<article>
+													<h4>📊 Data Engineering</h4>
+													<p>Skilled in designing data pipelines, ETL processes, and working with relational databases to transform raw data into actionable insights.</p>
+												</article>
+											</div>
+										</div>
+										<div class="col-6 col-12-medium">
+											<div class="features">
+												<article>
+													<h4>🎨 UI/UX Design</h4>
+													<p>User-centered design approach with experience in Figma, prototyping, and Agile methodologies to create intuitive interfaces.</p>
+												</article>
+											</div>
+										</div>
+									</div>
+
+									<div class="features" style="margin-top: 2em;">
+										<article style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);">
+											<h4>🌍 Languages</h4>
+											<div class="row">
+												<div class="col-6 col-12-xsmall">
+													<p><strong>English:</strong> Native</p>
+												</div>
+												<div class="col-6 col-12-xsmall">
+													<p><strong>German:</strong> Conversational</p>
+												</div>
+											</div>
+										</article>
+									</div>
+								</div>
+							</section>
+
+						<!-- Five -->
+							<section id="five">
+								<div class="container">
+									<h2>🚀 Featured Projects</h2>
+									<p style="font-size: 1.1em; margin-bottom: 2em;">A selection of projects that showcase my passion for building impactful solutions</p>
+									
+									<div class="features">
+										<article class="project-card">
+											<a href="" class="image" style="cursor: default;"><img src="images/Sinergize_img.png" alt="Sinergize Platform" /></a>
+											<div class="inner" style="padding: 1.5em;">
+												<h3>Sinergize</h3>
+												<h4 style="color: #667eea; margin-bottom: 1em;">Social Platform for Volunteer Management</h4>
+												<p>A comprehensive social media platform designed to bridge the gap between volunteers and non-profit organizations.</p>
+												<ul>
+													<li><strong>Smart Recommendations:</strong> ML-powered event suggestions based on user interests and location</li>
+													<li><strong>Real-Time Features:</strong> Built-in chat system and instant RSVP functionality</li>
+													<li><strong>Organization Tools:</strong> Complete profile management and event posting capabilities</li>
+													<li><strong>Impact Focus:</strong> Helping connect people who want to make a difference with organizations that need support</li>
+												</ul>
+												<div style="margin-top: 1em;">
+													<span style="background: #e3f2fd; color: #1976d2; padding: 0.3em 0.8em; border-radius: 15px; font-size: 0.85em; margin-right: 0.5em;">Full-Stack</span>
+													<span style="background: #f3e5f5; color: #7b1fa2; padding: 0.3em 0.8em; border-radius: 15px; font-size: 0.85em; margin-right: 0.5em;">Web Development</span>
+													<span style="background: #e8f5e9; color: #388e3c; padding: 0.3em 0.8em; border-radius: 15px; font-size: 0.85em;">In Progress</span>
+												</div>
+											</div>
+										</article>
+
+										<article class="project-card">
+											<a href="" class="image" style="cursor: default;"><img src="images/registration.png" alt="Gonzaga Registration" /></a>
+											<div class="inner" style="padding: 1.5em;">
+												<h3>Gonzaga Registration Website</h3>
+												<h4 style="color: #667eea; margin-bottom: 1em;">Student Initiative - 7,500+ Users</h4>
+												<p>Independently developed a free platform that revolutionized how Gonzaga students register for classes.</p>
+												<ul>
+													<li><strong>User Impact:</strong> Served the entire Gonzaga student body (7,500+ students)</li>
+													<li><strong>UX Innovation:</strong> Redesigned the course catalogue with a faster, more intuitive interface</li>
+													<li><strong>Problem Solving:</strong> Identified a real student need and took initiative to solve it</li>
+													<li><strong>Schedule Management:</strong> Complete tools for building and modifying class schedules</li>
+												</ul>
+												<div style="margin-top: 1em;">
+													<span style="background: #fff3e0; color: #e65100; padding: 0.3em 0.8em; border-radius: 15px; font-size: 0.85em; margin-right: 0.5em;">Web App</span>
+													<span style="background: #fce4ec; color: #c2185b; padding: 0.3em 0.8em; border-radius: 15px; font-size: 0.85em; margin-right: 0.5em;">UI/UX</span>
+													<span style="background: #e0f2f1; color: #00695c; padding: 0.3em 0.8em; border-radius: 15px; font-size: 0.85em;">High Impact</span>
+												</div>
+											</div>
+										</article>
+
+										<article class="project-card">
+											<a href="https://github.com/benberton/VotingWebsite/tree/master" target="_blank" class="image rescale"><img src="images/votingWebsite.png" alt="Voting Website" /></a>
+											<div class="inner" style="padding: 1.5em;">
+												<h3>Election Results System</h3>
+												<h4 style="color: #667eea; margin-bottom: 1em;">Algorithmic Voting Platform</h4>
+												<p>An innovative web platform demonstrating different methodologies for generating election results.</p>
+												<ul>
+													<li><strong>Interactive Polls:</strong> Users can create custom polls with multiple voting options</li>
+													<li><strong>Algorithm Efficiency:</strong> Optimized algorithms where complexity depends on poll items, not vote count</li>
+													<li><strong>Backend Architecture:</strong> Node.js backend for real-time data collection and result generation</li>
+													<li><strong>Educational Value:</strong> Demonstrates various election result calculation methods</li>
+												</ul>
+												<div style="margin-top: 1em;">
+													<span style="background: #e3f2fd; color: #1976d2; padding: 0.3em 0.8em; border-radius: 15px; font-size: 0.85em; margin-right: 0.5em;">Node.js</span>
+													<span style="background: #f3e5f5; color: #7b1fa2; padding: 0.3em 0.8em; border-radius: 15px; font-size: 0.85em; margin-right: 0.5em;">Algorithms</span>
+													<a href="https://github.com/benberton/VotingWebsite/tree/master" target="_blank" class="button small" style="margin-left: 0.5em;">View on GitHub</a>
+												</div>
+											</div>
+										</article>
+
+										<article class="project-card">
+											<a href="https://github.com/Gonzaga-CPSC-224/cpsc224_fp_f22-yahtzee" target="_blank" class="image rescale"><img src="images/game.png" alt="Yahtzee Game" /></a>
+											<div class="inner" style="padding: 1.5em;">
+												<h3>Multiplayer Yahtzee</h3>
+												<h4 style="color: #667eea; margin-bottom: 1em;">Team Software Development Project</h4>
+												<p>A fully functional multiplayer implementation of the classic dice game, built as a team project.</p>
+												<ul>
+													<li><strong>Object-Oriented Design:</strong> Clean architecture following OOP principles</li>
+													<li><strong>Team Collaboration:</strong> Worked with team using Agile methodologies</li>
+													<li><strong>Complete Testing:</strong> Comprehensive documentation and test coverage</li>
+													<li><strong>Game Logic:</strong> Full implementation of Yahtzee rules and scoring</li>
+												</ul>
+												<div style="margin-top: 1em;">
+													<span style="background: #fff3e0; color: #e65100; padding: 0.3em 0.8em; border-radius: 15px; font-size: 0.85em; margin-right: 0.5em;">Java</span>
+													<span style="background: #fce4ec; color: #c2185b; padding: 0.3em 0.8em; border-radius: 15px; font-size: 0.85em; margin-right: 0.5em;">Team Project</span>
+													<a href="https://github.com/Gonzaga-CPSC-224/cpsc224_fp_f22-yahtzee" target="_blank" class="button small" style="margin-left: 0.5em;">View on GitHub</a>
+												</div>
+											</div>
+										</article>
+									</div>
+								</div>
+							</section>
+						<!-- Six -->
+							<section id="six">
+								<div class="container">
+									<h2>💬 Let's Connect</h2>
+									<p style="font-size: 1.1em; margin-bottom: 2em;">I'm always excited to discuss new opportunities, interesting projects, or just chat about technology and innovation. Feel free to reach out!</p>
+									
+									<div class="row gtr-uniform">
+										<div class="col-5 col-12-medium">
+											<div class="contact-info">
+												<h3 style="margin-bottom: 1em;">Contact Information</h3>
+												<ul class="alt" style="list-style: none; padding: 0;">
+													<li style="margin-bottom: 1em;">
+														<i class="icon solid fa-envelope" style="color: #667eea; margin-right: 0.5em;"></i>
+														<strong>Email:</strong><br>
+														<a href="mailto:bberton@ethz.ch" style="margin-left: 1.8em;">bberton@ethz.ch</a>
+													</li>
+													<li style="margin-bottom: 1em;">
+														<i class="icon solid fa-phone" style="color: #667eea; margin-right: 0.5em;"></i>
+														<strong>Phone:</strong><br>
+														<span style="margin-left: 1.8em;">+1 (425) 615 4404</span>
+													</li>
+													<li style="margin-bottom: 1em;">
+														<i class="icon solid fa-map-marker-alt" style="color: #667eea; margin-right: 0.5em;"></i>
+														<strong>Location:</strong><br>
+														<span style="margin-left: 1.8em;">Zürich, Switzerland</span>
+													</li>
+												</ul>
+												
+												<h4 style="margin-top: 2em; margin-bottom: 0.5em;">Find Me Online</h4>
+												<ul class="icons" style="margin-top: 1em;">
+													<li><a href="https://github.com/benberton" target="_blank" class="icon brands fa-github fa-2x" style="color: #667eea;" aria-label="GitHub"><span class="label">Github</span></a></li>
+													<li><a href="https://www.linkedin.com/in/ben-berton" target="_blank" class="icon brands fa-linkedin fa-2x" style="color: #667eea;" aria-label="LinkedIn"><span class="label">Linkedin</span></a></li>
+												</ul>
+											</div>
+										</div>
+										
+										<div class="col-7 col-12-medium">
+											<div style="background: #fff; padding: 2em; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+												<h3 style="margin-bottom: 1em;">Send Me a Message</h3>
+												<form method="post" action="#">
+													<div class="row gtr-uniform">
+														<div class="col-12"><input type="text" name="Name" id="Name" placeholder="Your Name" required /></div>
+														<div class="col-12"><input type="email" name="Email" id="Email" placeholder="Your Email" required /></div>
+														<div class="col-12"><input type="text" name="Subject" id="Subject" placeholder="Subject" required /></div>
+														<div class="col-12"><textarea name="Message" id="Message" placeholder="Your Message" rows="5" required></textarea></div>
+														<div class="col-12">
+															<ul class="actions">
+																<li><input type="button" class="primary" onclick="sendEmail()" value="Send Message" /></li>
+																<li><input type="reset" value="Clear Form" /></li>
+															</ul>
+														</div>
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
+									
+									<div style="text-align: center; margin-top: 3em; padding: 2em; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; color: #fff;">
+										<h3 style="color: #fff; margin-bottom: 0.5em;">Open to Opportunities</h3>
+						<p style="font-size: 1.1em; margin-bottom: 1em;">I'm currently pursuing my Master's at ETH Zürich and am open to internships, research opportunities, and collaborative projects starting Summer 2026.</p>
+										<a href="assets/Ben Berton CV Spring 2026.pdf" class="button" target="_blank" style="background: #fff; color: #667eea;">Download Resume</a>
+									</div>
+								</div>
+							</section>
+
+							<script>
+								function sendEmail() {
+									var name = document.getElementById("Name").value;
+									var email = document.getElementById("Email").value;
+									var subject = document.getElementById("Subject").value;
+									var message = document.getElementById("Message").value;
+									
+									if (!name || !email || !subject || !message) {
+										alert("Please fill in all fields before sending.");
+										return;
+									}
+									
+									var body = "Hello,%0d%0a%0d%0a" + encodeURIComponent(message);
+									body += "%0d%0a%0d%0a" + "Thanks," + "%0d%0a" + encodeURIComponent(name);
+									body += "%0d%0a%0d%0a(Reply to: " + encodeURIComponent(email) + ")";
+									
+									window.location.href = "mailto:bberton@ethz.ch?subject=" + encodeURIComponent(subject) + "&body=" + body;
+								}
+							</script>
+							
+							<section id="footer">
+								<div class="container">
+									<ul class="copyright">
+										<li>&copy; 2026 Ben Berton. All rights reserved.</li>
+										<li>Design: <a href="http://html5up.net" style="color: #667eea;">HTML5 UP</a></li>
+										<li>Made with ❤️ in Zürich</li>
+									</ul>
+								</div>
+							</section>
+				
+							</div>
+				
+						<!-- Scripts -->
+							<script src="assets/js/jquery.min.js"></script>
+							<script src="assets/js/jquery.scrollex.min.js"></script>
+							<script src="assets/js/jquery.scrolly.min.js"></script>
+							<script src="assets/js/browser.min.js"></script>
+							<script src="assets/js/breakpoints.min.js"></script>
+							<script src="assets/js/util.js"></script>
+							<script src="assets/js/main.js"></script>
+				
+					</body>
+				</html>
+				

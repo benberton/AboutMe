@@ -1,228 +1,1236 @@
-<!DOCTYPE HTML>
-<!--
-	Read Only by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ben Berton</title>
+    <meta name="description" content="Ben Berton — Technology, Policy, and Innovation">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /*
+         * ENHANCED ALPINE LANDSCAPE SYSTEM
+         * 
+         * LAYER ARCHITECTURE (back to front):
+         * 1. Sky gradient with radial light source
+         * 2. Far distant peaks (0.08x parallax) - horizon line, heavily hazed
+         * 3. Distant range (0.12x) - atmospheric blue, soft blur
+         * 4. Mid-range peaks (0.22x) - more defined ridges
+         * 5. Near mountains (0.32x) - clearer silhouettes with subtle detail
+         * 6. Foreground ridges (0.38x) - sharpest, includes tiny alpine goat
+         * 7. Valley fog layers - independent slow drift (0.05x)
+         */
 
-<html>
-	<head>
-		<title>About Me</title>
-		<link rel="icon" href="images/favicon.png">
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<link rel="stylesheet" href="assets/css/added.css" />
+        :root {
+            --sky-light: #F8F9FA;
+            --fog: #E8EAED;
+            --stone-light: #C8CDD3;
+            --stone: #8B9CAF;
+            --stone-dark: #4A5A6A;
+            --slate: #2C3E3F;
+            --forest: #1F2D2E;
+            
+            --space-xs: 8px;
+            --space-sm: 16px;
+            --space-md: 24px;
+            --space-lg: 32px;
+            --space-xl: 48px;
+            --space-xxl: 64px;
+            
+            --font-light: 300;
+            --font-regular: 400;
+            --font-medium: 500;
+            --font-semibold: 600;
+            --font-bold: 700;
+            
+            --transition-base: 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+            --transition-smooth: 300ms cubic-bezier(0.4, 0.0, 0.2, 1);
+            --transition-spring: 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
 
-	</head>
-	<body class="is-preload">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-		<!-- Header -->
-			<section id="header">
-				<header>
-					<span class="image avatar"><img src="images/headshot.jpg" alt="" /></span>
-					<h1 id="logo">Ben Berton</h1>
-					<p>Student at Gonzaga University</p>
-				</header>
-				<nav id="nav">
-					<ul>
-						<li><a href="#one" class="active">About</a></li>
-						<li><a href="#two">Experience</a></li>
-						<li><a href="#three">Projects</a></li>
-						<li><a href="#four">Contact</a></li>
-					</ul>
-				</nav>
-				<footer>
-					<ul class="icons">
-						<li class="rescale"><a href="https://github.com/benberton" target="_blank" class="icon brands fa-github"><span class="label">Github</span></a></li>
-						<li class="rescale"><a href="https://www.linkedin.com/in/ben-berton" target="_blank" class="icon brands fa-linkedin"><span class="label">Linkedin</span></a></li>
-						<li class="rescale"><a href="mailto: bberton@zagmail.gonzaga.edu" target="_blank" class="icon solid fa-envelope"><span class="label">Send Email</span></a></li>
+        html {
+            scroll-behavior: smooth;
+        }
 
-					</ul>
-				</footer>
-			</section>
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+        }
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: var(--slate);
+            background: var(--sky-light);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
 
-				<!-- Main -->
-					<div id="main">
+        /* Sky gradient with light source */
+        .landscape {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+            background: 
+                radial-gradient(
+                    ellipse 140% 60% at 20% 0%,
+                    rgba(248, 249, 250, 0.5) 0%,
+                    rgba(232, 234, 237, 0.3) 30%,
+                    transparent 60%
+                ),
+                linear-gradient(
+                    180deg,
+                    rgba(232, 234, 237, 0.35) 0%,
+                    rgba(248, 249, 250, 0.15) 40%,
+                    rgba(248, 249, 250, 0.05) 70%,
+                    transparent 100%
+                );
+        }
 
-						<!-- One -->
-							<section id="one">
-								<div class="image main" data-position="center">
-									<img src="images/gonzaga.png" alt="" />
-								</div>
-								<div class="container">
-									<header class="major">
-										<h2>About Me</h2>
-										<p>I am a student and developer from Seattle, Washington. I love to work on personal projects in my free time and am always looking for that next programming
-											challenge to take on.&nbsp;&nbsp; <a href="assets/Ben Berton CV 2024.pdf" class="icon solid fa-file rescale" target="_blank"> <u>My Resume</u></a></p>
-									</header>
-									<!-- <p></p> -->
-								</div>
-							</section>
+        /* Far distant peaks */
+        .landscape::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 45vh;
+            background: 
+                radial-gradient(
+                    ellipse 130% 35% at 45% 82%,
+                    rgba(200, 205, 211, 0.14) 0%,
+                    transparent 55%
+                ),
+                radial-gradient(
+                    ellipse 110% 28% at 70% 85%,
+                    rgba(139, 156, 175, 0.12) 0%,
+                    transparent 50%
+                ),
+                linear-gradient(
+                    to bottom,
+                    transparent 0%,
+                    rgba(139, 156, 175, 0.08) 35%,
+                    rgba(139, 156, 175, 0.16) 50%,
+                    rgba(74, 90, 106, 0.20) 80%,
+                    rgba(74, 90, 106, 0.24) 100%
+                );
+            clip-path: polygon(
+                0 100%, 0 54%, 5% 52%, 10% 48%, 15% 50%, 20% 45%, 25% 47%, 30% 43%, 35% 40%, 40% 42%,
+                45% 38%, 50% 36%, 55% 39%, 60% 35%, 65% 38%, 70% 34%, 75% 37%, 80% 40%, 85% 43%,
+                90% 45%, 95% 48%, 100% 50%, 100% 100%
+            );
+            opacity: 1;
+            filter: blur(2px);
+            will-change: transform;
+        }
 
-						<!-- Two -->
-							<section id="two">
-								<div class="container">
-									<h2>Experience</h2>
-									<p></p>
-									<ul class="feature-icons">
-										<li class="icon solid fa-code">C++</li>
-										<li class="icon brands fa-github">GitHub</li>
-										<li class="icon solid fa-code">Java</li>
-										<li class="icon solid fa-server">Web Development</li>
-										<li class="icon solid fa-code">JavaScript</li>
-										<li class="icon solid fa-users">Project Development</li>
-									</ul>
-								</div>
-							</section>
+        /* Distant range */
+        .landscape::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40vh;
+            background: 
+                radial-gradient(
+                    ellipse 80% 22% at 35% 88%,
+                    rgba(200, 205, 211, 0.12) 0%,
+                    transparent 55%
+                ),
+                radial-gradient(
+                    ellipse 95% 20% at 65% 92%,
+                    rgba(74, 90, 106, 0.16) 0%,
+                    transparent 50%
+                ),
+                linear-gradient(
+                    to bottom,
+                    transparent 0%,
+                    rgba(74, 90, 106, 0.14) 45%,
+                    rgba(74, 90, 106, 0.22) 65%,
+                    rgba(44, 62, 63, 0.26) 100%
+                );
+            clip-path: polygon(
+                0 100%, 0 60%, 4% 58%, 8% 54%, 12% 56%, 16% 52%, 20% 54%, 24% 50%, 28% 52%,
+                32% 48%, 36% 50%, 40% 46%, 44% 48%, 48% 44%, 52% 40%, 56% 43%, 60% 38%, 64% 41%,
+                68% 44%, 72% 46%, 76% 48%, 80% 50%, 84% 52%, 88% 54%, 92% 56%, 96% 58%, 100% 60%, 100% 100%
+            );
+            opacity: 1;
+            filter: blur(1px);
+            will-change: transform;
+        }
 
-						<!-- Three -->
-							<section id="three">
-								<div class="container">
-									<h3>Personal Projects</h3>
-									<br>
-									<!-- <p>Just some of the projects in have done in my free time and at events</p> -->
-									<div class="features">
-										<article>
-											<a href="" target="_blank" class="image" style="cursor: default;"><img src="images/Sinergize_img.png" alt="" /></a>
-											<div class="inner">
-												<h4>Sinergize (In Progress)</h4>
-												<p>
-													•	Currently creating a social media site that connects volunteers to non-profit organizations.<br>
-													•	Organizations have the ability to post events and create a profile.<br>
-													•	Volunteers can view recommended events on their home page as well as search for events .<br>
-													•   Events are recommended based on the users interests and location.<br>
-													•   Volunteers can chat with other volunteers and rsvp to events.<br>
-												</p>
-											</div>
-										</article>
-										<article>
-											<a href="https://github.com/benberton/VotingWebsite/tree/master" target="_blank" class="image rescale"><img src="images/votingWebsite.png" alt="" /></a>
-											<div class="inner">
-												<h4>Voting Website</h4>
-												<p>
-													•	Created a website to show the different ways of generating election results. <br>
-													•	Allows users to create polls in which others can vote.<br>
-													•	Uses node js as a backend to collect and generate the election results.<br>
-													•	The time complexity in generating results depends on the number of items in the poll, not the number of votes.  
-												</p>
-											</div>
-										</article>
-										<article>
-											<a href="https://github.com/Gonzaga-CPSC-224/cpsc224_fp_f22-yahtzee" target="_blank" class="image rescale"><img src="images/game.png" alt="" /></a>
-											<div class="inner">
-												<h4>Yahtzee</h4>
-												<p>
-													•	Programmed a working multiplayer game of Yahtzee for my software development class in Java. <br>
-													•	Used object oriented programming to design and implement game.<br>
-													•	Worked with team members to document and complete project.  
-												</p>
-											</div>
-										</article>
-										<article>
-											<a href="" target="_blank" class="image" style="cursor: default;"><img src="images/registration.png" alt="" /></a>
-											<div class="inner">
-												<h4>Gonzaga Registration Project </h4>
-												<p>
-													•	Seized individual initiative to develop a free website set out to simplify the registration process at Gonzaga. <br>
-													•	Reformatted the available course catalogue into a faster and simpler user interface. <br>
-													•	7,500+ Gonzaga students can build and modify their class schedules using the site. 
-												</p>
-											</div>
-										</article>
-										<article>
-											<a href="https://github.com/benberton/10-Letter-Wordle" target="_blank" class="image rescale"><img src="images/wordle.png" alt="" /></a>
-											<div class="inner">
-												<h4>10 Letter Wordle</h4>
-												<p>
-													•	Programmed alternative version of the popular game Wordle in c++<br>
-													•	Used object oriented techniques to design and implement the game.<br>
-													•	It's absolutely no fun to play in case you were wondering.
-												</p>
-											</div>
-										</article>
-										<article>
-											<a href="https://github.com/benberton/Chess" target="_blank" class="image rescale"><img src="images/chess.png" alt="" /></a>
-											<div class="inner">
-												<h4>Command Line Chess</h4>
-												<p>
-													•	Developed the game of chess in the command line for the Gonzaga Hackathon.<br>
-													•	Worked with team to plan out and complete the project given a 12 hour window.<br>
-													
-												</p>
-											</div>
-										</article>
-									</div>
-								</div>
-							</section>
-						<!-- Four -->
-						<form id="fcf-form-id" class="fcf-form-class" method="post" action="contact-form-process.php"></form>
-							<section id="four">
-								<div class="container">
-									<h3>Contact Me</h3>
-									
-									<!-- <p>Integer eu ante ornare amet commetus vestibulum blandit integer in curae ac faucibus integer non. Adipiscing cubilia elementum integer. Integer eu ante ornare amet commetus.</p> -->
-									<form method="post" action="#">
-										<div class="row gtr-uniform">
-											<div class="col-6 col-12-xsmall"><input type="text" name="Name" id="Name" placeholder="Name" /></div>
-											<div class="col-6 col-12-xsmall"><input type="email" name="Email" id="Email" placeholder="Email" /></div>
-											<div class="col-12"><input type="text" name="Subject" id="Subject" placeholder="Subject" /></div>
-											<div class="col-12"><textarea name="Message" id="Message" placeholder="Message" rows="6"></textarea></div>
-											<div class="col-12">
-												<ul class="actions">
-									
-													<li><input id="" type="button" class="primary" onclick=sendEmail() value="Send Message" /></li>
-													<li><input type="reset" value="Reset Form" /></li>
-												</ul>
-											</div>
-										</div>
-									</form>
-								</div>
-							
-							</section>
+        /* Mid-range peaks */
+        .mountain-mid {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 34vh;
+            background: 
+                radial-gradient(ellipse 60% 18% at 25% 86%, rgba(200, 205, 211, 0.10) 0%, transparent 60%),
+                radial-gradient(ellipse 50% 15% at 75% 90%, rgba(31, 45, 46, 0.14) 0%, transparent 55%),
+                linear-gradient(to bottom, transparent 0%, rgba(44, 62, 63, 0.18) 50%, rgba(44, 62, 63, 0.26) 70%, rgba(31, 45, 46, 0.30) 100%);
+            clip-path: polygon(
+                0 100%, 0 64%, 3% 62%, 6% 60%, 9% 58%, 12% 60%, 15% 56%, 18% 58%, 21% 54%, 24% 56%,
+                27% 52%, 30% 50%, 33% 52%, 36% 48%, 39% 50%, 42% 46%, 45% 48%, 48% 44%, 51% 42%, 54% 44%,
+                57% 40%, 60% 42%, 63% 44%, 66% 46%, 69% 48%, 72% 50%, 75% 52%, 78% 54%, 81% 52%, 84% 54%,
+                87% 56%, 90% 54%, 93% 56%, 96% 58%, 100% 60%, 100% 100%
+            );
+            z-index: -1;
+            pointer-events: none;
+            will-change: transform;
+        }
 
-							<script>
-								function sendEmail()
-								{
-									var address = "bberton@zagmail.gonzaga.edu";
-									
-									var sub = document.getElementById("Subject").value;
+        /* Near mountains */
+        .mountain-near {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 28vh;
+            background: 
+                linear-gradient(125deg, transparent 0%, transparent 35%, rgba(200, 205, 211, 0.08) 40%, transparent 45%, transparent 100%),
+                linear-gradient(to bottom, transparent 0%, rgba(31, 45, 46, 0.22) 55%, rgba(31, 45, 46, 0.30) 80%, rgba(31, 45, 46, 0.34) 100%);
+            clip-path: polygon(
+                0 100%, 0 70%, 3% 68%, 6% 66%, 9% 64%, 12% 66%, 15% 62%, 18% 64%, 21% 60%, 24% 62%,
+                27% 58%, 30% 60%, 33% 56%, 36% 58%, 39% 54%, 42% 56%, 45% 52%, 48% 50%, 51% 52%, 54% 48%,
+                57% 50%, 60% 46%, 63% 48%, 66% 50%, 69% 52%, 72% 54%, 75% 56%, 78% 58%, 81% 60%, 84% 58%,
+                87% 60%, 90% 62%, 93% 60%, 96% 62%, 100% 64%, 100% 100%
+            );
+            z-index: -1;
+            pointer-events: none;
+            will-change: transform;
+        }
 
-									
-									var bod = "Hello,%0d%0a%0d%0a" + String(document.getElementById("Message").value)
-									bod +=  "%0d%0a%0d%0a" + "Thanks," + "%0d%0a" + String(document.getElementById("Name").value)
-									bod +=  "%0d%0a%0d%0a(From " + document.getElementById("Email").value + ")"
+        /* Foreground ridges */
+        .mountain-fore {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 22vh;
+            background: 
+                linear-gradient(110deg, transparent 0%, transparent 55%, rgba(200, 205, 211, 0.06) 58%, transparent 62%, transparent 100%),
+                linear-gradient(to bottom, transparent 0%, rgba(31, 45, 46, 0.26) 60%, rgba(31, 45, 46, 0.34) 80%, rgba(31, 45, 46, 0.38) 100%);
+            clip-path: polygon(
+                0 100%, 0 74%, 2% 72%, 4% 70%, 6% 68%, 8% 70%, 10% 66%, 12% 68%, 14% 64%, 16% 66%,
+                18% 62%, 20% 64%, 22% 60%, 24% 62%, 26% 58%, 28% 60%, 30% 56%, 32% 58%, 34% 54%, 36% 56%,
+                38% 52%, 40% 54%, 42% 50%, 44% 52%, 46% 48%, 48% 50%, 50% 46%, 52% 48%, 54% 50%, 56% 52%,
+                58% 54%, 60% 52%, 62% 54%, 64% 56%, 66% 58%, 68% 56%, 70% 58%, 72% 60%, 74% 62%, 76% 60%,
+                78% 62%, 80% 64%, 82% 62%, 84% 64%, 86% 66%, 88% 64%, 90% 66%, 92% 68%, 94% 66%, 96% 68%,
+                98% 70%, 100% 72%, 100% 100%
+            );
+            z-index: -1;
+            pointer-events: none;
+            will-change: transform;
+        }
 
-									if(address == true) {
-										window.location.assign("mailto:bberton@outlook.com?Subject=" + sub + "&body=" + bod + "");
-									}
-									else {
-										window.location.assign("mailto:bberton@outlook.com?Subject=" + sub + "&body=" + bod + "");
-									}
-								}
-							</script>
-							          <section id="footer">
-										<div class="container">
-											<ul class="copyright">
-												<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-											</ul>
-										</div>
-									</section>
-				
-							</div>
-				
-						<!-- Scripts -->
-							<script src="assets/js/jquery.min.js"></script>
-							<script src="assets/js/jquery.scrollex.min.js"></script>
-							<script src="assets/js/jquery.scrolly.min.js"></script>
-							<script src="assets/js/browser.min.js"></script>
-							<script src="assets/js/breakpoints.min.js"></script>
-							<script src="assets/js/util.js"></script>
-							<script src="assets/js/main.js"></script>
-				
-					</body>
-				</html>
-				
+        /* Alpine goat silhouette */
+        .alpine-goat {
+            position: fixed;
+            bottom: 17vh;
+            left: 68%;
+            width: 18px;
+            height: 14px;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.15;
+        }
+
+        .alpine-goat::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--forest);
+            clip-path: polygon(20% 40%, 25% 35%, 45% 30%, 70% 35%, 75% 40%, 72% 100%, 68% 100%, 65% 45%, 35% 45%, 32% 100%, 28% 100%, 25% 45%, 20% 40%);
+        }
+
+        .alpine-goat::after {
+            content: '';
+            position: absolute;
+            bottom: 30%;
+            left: -15%;
+            width: 40%;
+            height: 70%;
+            background: var(--forest);
+            clip-path: polygon(60% 100%, 50% 80%, 30% 75%, 20% 65%, 25% 55%, 20% 35%, 15% 15%, 25% 30%, 35% 45%, 50% 40%, 45% 30%, 55% 45%, 70% 70%, 60% 100%);
+        }
+
+        /* Valley fog */
+        .atmosphere-fog {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 38vh;
+            background: 
+                radial-gradient(ellipse 85% 25% at 15% 90%, rgba(248, 249, 250, 0.45) 0%, rgba(248, 249, 250, 0.25) 30%, transparent 55%),
+                radial-gradient(ellipse 75% 22% at 65% 88%, rgba(232, 234, 237, 0.40) 0%, rgba(232, 234, 237, 0.20) 30%, transparent 50%),
+                radial-gradient(ellipse 95% 20% at 42% 85%, rgba(248, 249, 250, 0.35) 0%, rgba(248, 249, 250, 0.15) 35%, transparent 60%),
+                radial-gradient(ellipse 100% 18% at 50% 82%, rgba(232, 234, 237, 0.25) 0%, transparent 55%);
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        /* Section separator ridges */
+        .section-separator {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 100px;
+            bottom: -1px;
+            background: 
+                linear-gradient(to bottom, transparent 0%, rgba(248, 249, 250, 0.3) 20%, rgba(248, 249, 250, 0.85) 45%, rgba(248, 249, 250, 1) 100%),
+                radial-gradient(ellipse 100% 40% at 50% 45%, transparent 0%, rgba(232, 234, 237, 0.15) 100%);
+            clip-path: polygon(
+                0 100%, 0 38%, 5% 42%, 10% 35%, 15% 40%, 20% 32%, 25% 38%, 30% 28%, 35% 35%, 40% 25%,
+                45% 32%, 50% 22%, 55% 30%, 60% 26%, 65% 33%, 70% 30%, 75% 36%, 80% 32%, 85% 38%,
+                90% 35%, 95% 40%, 100% 42%, 100% 100%
+            );
+            pointer-events: none;
+        }
+
+        /* Fixed header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 64px;
+            background: rgba(248, 249, 250, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--fog);
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            height: 100%;
+            padding: 0 var(--space-md);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-name {
+            font-weight: var(--font-semibold);
+            font-size: 1rem;
+            color: var(--slate);
+            letter-spacing: 0.02em;
+        }
+
+        .header-nav {
+            display: flex;
+            gap: var(--space-lg);
+        }
+
+        .header-link {
+            font-size: 0.875rem;
+            font-weight: var(--font-medium);
+            color: var(--stone-dark);
+            text-decoration: none;
+            position: relative;
+            transition: color var(--transition-base);
+        }
+
+        .header-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--slate);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform var(--transition-smooth);
+        }
+
+        .header-link:hover {
+            color: var(--slate);
+        }
+
+        .header-link:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        /* Progress indicator */
+        .progress-indicator {
+            position: fixed;
+            right: var(--space-md);
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 90;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .progress-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--stone-light);
+            border: none;
+            cursor: pointer;
+            transition: all var(--transition-smooth);
+            padding: 0;
+            position: relative;
+        }
+
+        .progress-dot::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: rgba(44, 62, 63, 0.08);
+            transition: transform var(--transition-smooth);
+        }
+
+        .progress-dot.active {
+            background: var(--slate);
+            transform: scale(1.4);
+        }
+
+        .progress-dot.active::before {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .progress-dot:hover {
+            background: var(--stone-dark);
+            transform: scale(1.2);
+        }
+
+        .progress-dot:hover::before {
+            transform: translate(-50%, -50%) scale(1);
+            background: rgba(44, 62, 63, 0.06);
+        }
+
+        /* Main content */
+        main {
+            position: relative;
+            z-index: 1;
+            padding-top: 64px;
+        }
+
+        section {
+            min-height: 100vh;
+            padding: var(--space-xxl) var(--space-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        section:nth-child(even) {
+            background: rgba(248, 249, 250, 0.5);
+        }
+
+        .section-inner {
+            max-width: 900px;
+            width: 100%;
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 600ms cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .section-inner.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-inner > * {
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity 400ms cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .section-inner.visible > *:nth-child(1) { transition-delay: 100ms; opacity: 1; transform: translateY(0); }
+        .section-inner.visible > *:nth-child(2) { transition-delay: 150ms; opacity: 1; transform: translateY(0); }
+        .section-inner.visible > *:nth-child(3) { transition-delay: 200ms; opacity: 1; transform: translateY(0); }
+        .section-inner.visible > *:nth-child(4) { transition-delay: 250ms; opacity: 1; transform: translateY(0); }
+        .section-inner.visible > *:nth-child(5) { transition-delay: 300ms; opacity: 1; transform: translateY(0); }
+        .section-inner.visible > *:nth-child(6) { transition-delay: 350ms; opacity: 1; transform: translateY(0); }
+
+        /* Intro section with headshot */
+        #intro .section-inner {
+            display: grid;
+            grid-template-columns: 1fr 200px;
+            gap: var(--space-xl);
+            align-items: start;
+        }
+
+        #intro .intro-content {
+            grid-column: 1;
+        }
+
+        #intro .intro-image {
+            grid-column: 2;
+        }
+
+        .headshot-wrapper {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            margin-top: var(--space-md);
+        }
+
+        .headshot {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 30%;
+            border-radius: 2px;
+            opacity: 0.98;
+            filter: grayscale(12%) contrast(1.03) brightness(1.0) saturate(0.88);
+            transition: all 0.3s ease;
+        }
+
+        .headshot:hover {
+            opacity: 1;
+            filter: grayscale(8%) contrast(1.05) brightness(1.01) saturate(0.92);
+        }
+
+        .headshot-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: transparent;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .headshot-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 0;
+            background: transparent;
+            pointer-events: none;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 0;
+            background: var(--slate);
+            color: white;
+            padding: var(--space-sm);
+            text-decoration: none;
+            z-index: 200;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Typography */
+        h2 {
+            font-size: 2.5rem;
+            font-weight: var(--font-bold);
+            line-height: 1.2;
+            color: var(--slate);
+            margin-bottom: var(--space-md);
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            font-weight: var(--font-semibold);
+            line-height: 1.3;
+            color: var(--slate);
+            margin-bottom: var(--space-sm);
+        }
+
+        h4 {
+            font-size: 1rem;
+            font-weight: var(--font-medium);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--stone-dark);
+            margin-bottom: var(--space-sm);
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--slate);
+            margin-bottom: var(--space-md);
+        }
+
+        .lead {
+            font-size: 1.125rem;
+            font-weight: var(--font-light);
+            line-height: 1.8;
+            color: var(--stone-dark);
+        }
+
+        /* Components */
+        .card {
+            background: white;
+            border: 1px solid rgba(232, 234, 237, 0.6);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-lg);
+            transition: all var(--transition-smooth);
+            position: relative;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: inherit;
+            box-shadow: 0 0 0 rgba(44, 62, 63, 0);
+            transition: box-shadow var(--transition-smooth);
+            pointer-events: none;
+        }
+
+        .card:hover {
+            border-color: rgba(200, 205, 211, 0.8);
+            transform: translateY(-3px);
+        }
+
+        .card:hover::before {
+            box-shadow: 0 8px 24px rgba(44, 62, 63, 0.04),
+                        0 2px 8px rgba(44, 62, 63, 0.02);
+        }
+
+        .card-with-logo {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: var(--space-xl);
+            align-items: start;
+        }
+
+        .card-logo {
+            width: 72px;
+            height: 72px;
+            object-fit: contain;
+            opacity: 0.88;
+            mix-blend-mode: multiply;
+            transition: opacity var(--transition-base);
+        }
+
+        .card-logo.eth-logo {
+            width: 96px;
+            height: 72px;
+            object-fit: contain;
+            object-position: left center;
+        }
+
+        .card:hover .card-logo {
+            opacity: 1;
+        }
+
+        .card-content {
+            min-width: 0;
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-xs);
+            margin-top: var(--space-md);
+        }
+
+        .skill-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            background: var(--fog);
+            color: var(--stone-dark);
+            font-size: 0.875rem;
+            font-weight: var(--font-medium);
+            border-radius: 4px;
+            transition: all var(--transition-base),
+                        transform var(--transition-smooth);
+            position: relative;
+        }
+
+        .skill-tag:hover {
+            background: var(--stone-light);
+            color: var(--slate);
+            transform: translateY(-1px);
+        }
+
+        .location {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 7px;
+            font-size: 0.8125rem;
+            color: var(--stone);
+            margin: 6px 0 0 0;
+            line-height: 1.4;
+        }
+
+        .flag-icon {
+            width: auto;
+            height: 11px;
+            opacity: 0.68;
+            filter: grayscale(18%) saturate(0.72);
+            flex-shrink: 0;
+            vertical-align: baseline;
+            margin-top: 2px;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: var(--space-md);
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            bottom: 0;
+            width: 1px;
+            background: var(--fog);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: var(--space-xl);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: calc(-1 * var(--space-md) - 4px);
+            top: 8px;
+            width: 9px;
+            height: 9px;
+            background: var(--slate);
+            border-radius: 50%;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-md);
+            margin-top: var(--space-lg);
+        }
+
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            color: var(--slate);
+            text-decoration: none;
+            font-weight: var(--font-medium);
+            transition: color var(--transition-base),
+                        transform var(--transition-smooth);
+            position: relative;
+        }
+
+        .contact-link::before {
+            content: '→';
+            opacity: 0;
+            transform: translateX(-4px);
+            transition: opacity var(--transition-base),
+                        transform var(--transition-smooth);
+            margin-right: -8px;
+        }
+
+        .contact-link:hover {
+            color: var(--stone-dark);
+            transform: translateX(2px);
+        }
+
+        .contact-link:hover::before {
+            opacity: 0.4;
+            transform: translateX(0);
+        }
+
+        footer {
+            padding: var(--space-lg) var(--space-md);
+            text-align: center;
+            color: var(--stone);
+            font-size: 0.875rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                height: 56px;
+            }
+
+            .header-nav {
+                display: none;
+            }
+
+            .progress-indicator {
+                right: var(--space-sm);
+            }
+
+            section {
+                padding: var(--space-xl) var(--space-sm);
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .timeline {
+                padding-left: var(--space-sm);
+            }
+
+            #intro .section-inner {
+                grid-template-columns: 1fr;
+                gap: var(--space-md);
+            }
+
+            #intro .intro-image {
+                grid-column: 1;
+                grid-row: 1;
+                display: flex;
+                justify-content: center;
+            }
+
+            #intro .intro-content {
+                grid-column: 1;
+                grid-row: 2;
+            }
+
+            .headshot-wrapper {
+                width: 160px;
+                height: 160px;
+            }
+
+            .alpine-goat {
+                display: none;
+            }
+        }
+
+        @media print {
+            .landscape,
+            .mountain-mid,
+            .mountain-near,
+            .mountain-fore,
+            .atmosphere-fog,
+            .alpine-goat,
+            .section-separator,
+            .progress-indicator,
+            header {
+                display: none;
+            }
+
+            section {
+                min-height: auto;
+                page-break-inside: avoid;
+            }
+
+            .headshot-wrapper::before,
+            .headshot-wrapper::after {
+                display: none;
+            }
+
+            .headshot {
+                clip-path: none;
+                border-radius: 4px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main" class="skip-link">Skip to main content</a>
+
+    <!-- Alpine landscape layers -->
+    <div class="landscape" aria-hidden="true"></div>
+    <div class="mountain-mid" aria-hidden="true"></div>
+    <div class="mountain-near" aria-hidden="true"></div>
+    <div class="mountain-fore" aria-hidden="true"></div>
+    <div class="alpine-goat" aria-hidden="true"></div>
+    <div class="atmosphere-fog" aria-hidden="true"></div>
+
+    <header>
+        <div class="header-content">
+            <div class="header-name">Ben Berton</div>
+            <nav class="header-nav" aria-label="Main navigation">
+                <a href="#intro" class="header-link">About</a>
+                <a href="#education" class="header-link">Education</a>
+                <a href="#experience" class="header-link">Experience</a>
+                <a href="#contact" class="header-link">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="progress-indicator" aria-hidden="true">
+        <button class="progress-dot" data-section="intro" aria-label="Go to introduction"></button>
+        <button class="progress-dot" data-section="education" aria-label="Go to education"></button>
+        <button class="progress-dot" data-section="experience" aria-label="Go to experience"></button>
+        <button class="progress-dot" data-section="interests" aria-label="Go to interests"></button>
+        <button class="progress-dot" data-section="contact" aria-label="Go to contact"></button>
+    </div>
+
+    <main id="main">
+        <section id="intro">
+            <div class="section-separator" aria-hidden="true"></div>
+            <div class="section-inner visible">
+                <div class="intro-content">
+                    <p style="font-size: 0.875rem; color: var(--stone-dark); margin-bottom: var(--space-sm);">Hello —</p>
+                    <h2>I'm Ben Berton</h2>
+                    <p class="lead">
+                        I'm currently pursuing a Master of Science in Management, Technology, and Economics at ETH Zürich, 
+                        focusing on the intersection of data science, policy, and innovation. My work spans technology 
+                        consulting, data analytics, and product development, with a particular interest in how technology 
+                        shapes public policy and organizational strategy.
+                    </p>
+                    <p>
+                        Previously, I worked as a Technology Strategy Consultant, helping organizations leverage data and 
+                        digital tools to solve complex problems. I'm drawn to roles that combine technical depth with 
+                        strategic thinking—building systems that matter.
+                    </p>
+                </div>
+                <div class="intro-image">
+                    <div class="headshot-wrapper">
+                        <img src="images/headshot.jpg" alt="Ben Berton" class="headshot">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="education">
+            <div class="section-separator" aria-hidden="true"></div>
+            <div class="section-inner">
+                <h2>Education</h2>
+                
+                <div class="card card-with-logo">
+                    <img src="images/ETH_Logo.png" alt="ETH Zürich logo" class="card-logo eth-logo">
+                    <div class="card-content">
+                        <h3 style="margin-bottom: 4px;">ETH Zürich</h3>
+                        <p class="location">
+                            <svg class="flag-icon" viewBox="0 0 1 1" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+                                <rect width="1" height="1" fill="#DA291C"/>
+                                <rect x="0.4" y="0.2" width="0.2" height="0.6" fill="white"/>
+                                <rect x="0.2" y="0.4" width="0.6" height="0.2" fill="white"/>
+                            </svg>
+                            <span>Zürich, Switzerland</span>
+                        </p>
+                        <p style="color: var(--stone-dark); margin: 10px 0 6px 0; font-size: 0.9375rem; line-height: 1.5;">
+                            Master of Science in Management, Technology, and Economics
+                        </p>
+                        <p style="font-size: 0.8125rem; color: var(--stone); margin-bottom: var(--space-md); font-weight: 400;">
+                            September 2025 – Present
+                        </p>
+                        <p>
+                            Concentrating on data science, innovation management, and the interplay between technology and policy.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card card-with-logo">
+                    <img src="images/Gonzaga_Logo.png" alt="Gonzaga University logo" class="card-logo">
+                    <div class="card-content">
+                        <h3 style="margin-bottom: 4px;">Gonzaga University</h3>
+                        <p class="location">
+                            <svg class="flag-icon" viewBox="0 0 19 10" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+                                <rect width="19" height="10" fill="#B22234"/>
+                                <rect y="0" width="19" height="0.77" fill="white"/>
+                                <rect y="1.54" width="19" height="0.77" fill="white"/>
+                                <rect y="3.08" width="19" height="0.77" fill="white"/>
+                                <rect y="4.62" width="19" height="0.77" fill="white"/>
+                                <rect y="6.16" width="19" height="0.77" fill="white"/>
+                                <rect y="7.7" width="19" height="0.77" fill="white"/>
+                                <rect y="9.23" width="19" height="0.77" fill="white"/>
+                                <rect width="7.6" height="5.38" fill="#3C3B6E"/>
+                            </svg>
+                            <span>Spokane, USA</span>
+                        </p>
+                        <p style="color: var(--stone-dark); margin: 10px 0 6px 0; font-size: 0.9375rem; line-height: 1.5;">
+                            Bachelor of Science in Computer Science, Minor in Mathematics
+                        </p>
+                        <p style="font-size: 0.8125rem; color: var(--stone); margin-bottom: var(--space-md); font-weight: 400;">
+                            August 2020 – May 2024 | Summa Cum Laude
+                        </p>
+                        <p>
+                            President's List (all semesters). Research focus on machine learning applications in public health.
+                        </p>
+                    </div>
+                </div>
+
+                <h4 style="margin-top: var(--space-lg);">Technical Skills</h4>
+                <div class="skills">
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">JavaScript</span>
+                    <span class="skill-tag">Node.js</span>
+                    <span class="skill-tag">SQL</span>
+                    <span class="skill-tag">C++</span>
+                    <span class="skill-tag">Alteryx</span>
+                    <span class="skill-tag">Power BI</span>
+                    <span class="skill-tag">Figma</span>
+                    <span class="skill-tag">Git</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience">
+            <div class="section-separator" aria-hidden="true"></div>
+            <div class="section-inner">
+                <h2>Experience</h2>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="card card-with-logo">
+                            <img src="images/RyanLLC_Logo.png" alt="Ryan LLC logo" class="card-logo">
+                            <div class="card-content">
+                            <h3>Technology Strategy Consultant</h3>
+                            <p style="color: var(--stone-dark); margin-bottom: var(--space-xs);">Ryan LLC</p>
+                            <p class="location">
+                                <svg class="flag-icon" viewBox="0 0 19 10" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+                                    <rect width="19" height="10" fill="#B22234"/>
+                                    <rect y="0" width="19" height="0.77" fill="white"/>
+                                    <rect y="1.54" width="19" height="0.77" fill="white"/>
+                                    <rect y="3.08" width="19" height="0.77" fill="white"/>
+                                    <rect y="4.62" width="19" height="0.77" fill="white"/>
+                                    <rect y="6.16" width="19" height="0.77" fill="white"/>
+                                    <rect y="7.7" width="19" height="0.77" fill="white"/>
+                                    <rect y="9.23" width="19" height="0.77" fill="white"/>
+                                    <rect width="7.6" height="5.38" fill="#3C3B6E"/>
+                                </svg>
+                                <span>Bellevue, USA</span>
+                            </p>
+                            <p style="font-size: 0.875rem; color: var(--stone); margin-bottom: var(--space-md); margin-top: 2px;">
+                                August 2024 – September 2025
+                            </p>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="margin-bottom: var(--space-xs); padding-left: 1.25rem; position: relative;">
+                                    <span style="position: absolute; left: 0; color: var(--stone);">–</span>
+                                    Designed and implemented data pipeline solutions for enterprise clients
+                                </li>
+                                <li style="margin-bottom: var(--space-xs); padding-left: 1.25rem; position: relative;">
+                                    <span style="position: absolute; left: 0; color: var(--stone);">–</span>
+                                    Built interactive dashboards for executive decision-making
+                                </li>
+                                <li style="margin-bottom: var(--space-xs); padding-left: 1.25rem; position: relative;">
+                                    <span style="position: absolute; left: 0; color: var(--stone);">–</span>
+                                    Led process optimization initiatives that improved efficiency by 30%
+                                </li>
+                            </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="card card-with-logo">
+                            <img src="images/Gonzaga_Logo.png" alt="Gonzaga University logo" class="card-logo">
+                            <div class="card-content">
+                            <h3>Research Assistant</h3>
+                            <p style="color: var(--stone-dark); margin-bottom: var(--space-xs);">Gonzaga University</p>
+                            <p class="location">
+                                <svg class="flag-icon" viewBox="0 0 19 10" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+                                    <rect width="19" height="10" fill="#B22234"/>
+                                    <rect y="0" width="19" height="0.77" fill="white"/>
+                                    <rect y="1.54" width="19" height="0.77" fill="white"/>
+                                    <rect y="3.08" width="19" height="0.77" fill="white"/>
+                                    <rect y="4.62" width="19" height="0.77" fill="white"/>
+                                    <rect y="6.16" width="19" height="0.77" fill="white"/>
+                                    <rect y="7.7" width="19" height="0.77" fill="white"/>
+                                    <rect y="9.23" width="19" height="0.77" fill="white"/>
+                                    <rect width="7.6" height="5.38" fill="#3C3B6E"/>
+                                </svg>
+                                <span>Spokane, USA</span>
+                            </p>
+                            <p style="font-size: 0.875rem; color: var(--stone); margin-bottom: var(--space-md); margin-top: 2px;">
+                                January 2023 – May 2024
+                            </p>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="margin-bottom: var(--space-xs); padding-left: 1.25rem; position: relative;">
+                                    <span style="position: absolute; left: 0; color: var(--stone);">–</span>
+                                    Developed machine learning models for epidemiological forecasting
+                                </li>
+                                <li style="margin-bottom: var(--space-xs); padding-left: 1.25rem; position: relative;">
+                                    <span style="position: absolute; left: 0; color: var(--stone);">–</span>
+                                    Collaborated with public health officials on data-driven interventions
+                                </li>
+                            </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="interests">
+            <div class="section-separator" aria-hidden="true"></div>
+            <div class="section-inner">
+                <h2>Interests</h2>
+                <p class="lead">
+                    I'm particularly interested in the application of technology to policy challenges—how data systems, 
+                    digital infrastructure, and algorithmic tools can support better governance and more equitable outcomes.
+                </p>
+                <p>
+                    Outside of work, I spend time hiking in the Swiss Alps, reading about institutional design and innovation 
+                    policy, and tinkering with personal coding projects. I'm always interested in conversations about technology's 
+                    role in society and how we can build systems that work for everyone.
+                </p>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="section-separator" aria-hidden="true"></div>
+            <div class="section-inner">
+                <h2>Get in Touch</h2>
+                <p>
+                    I'm currently based in Zürich and open to opportunities in technology, policy, and international 
+                    organizations. Feel free to reach out if you'd like to connect.
+                </p>
+                <div class="contact-links">
+                    <a href="mailto:bberton@ethz.ch" class="contact-link">bberton@ethz.ch</a>
+                    <a href="tel:+14256154404" class="contact-link">+1 (425) 615-4404</a>
+                    <a href="assets/Ben Berton CV Spring 2026.pdf" class="contact-link" download>Download CV</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p class="location" style="justify-content: center;">
+            <svg class="flag-icon" viewBox="0 0 1 1" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+                <rect width="1" height="1" fill="#DA291C"/>
+                <rect x="0.4" y="0.2" width="0.2" height="0.6" fill="white"/>
+                <rect x="0.2" y="0.4" width="0.6" height="0.2" fill="white"/>
+            </svg>
+            <span>Zürich, Switzerland · 2026</span>
+        </p>
+    </footer>
+
+    <script>
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        function initParallax() {
+            if (prefersReducedMotion) return;
+
+            const layers = {
+                landscape: document.querySelector('.landscape'),
+                mountainMid: document.querySelector('.mountain-mid'),
+                mountainNear: document.querySelector('.mountain-near'),
+                mountainFore: document.querySelector('.mountain-fore'),
+                alpineGoat: document.querySelector('.alpine-goat'),
+                atmosphereFog: document.querySelector('.atmosphere-fog')
+            };
+            
+            let ticking = false;
+
+            function updateParallax() {
+                const scrolled = window.pageYOffset;
+                
+                if (layers.landscape) layers.landscape.style.transform = `translateY(${scrolled * 0.08}px)`;
+                if (layers.mountainMid) layers.mountainMid.style.transform = `translateY(${scrolled * 0.22}px)`;
+                if (layers.mountainNear) layers.mountainNear.style.transform = `translateY(${scrolled * 0.32}px)`;
+                if (layers.mountainFore) layers.mountainFore.style.transform = `translateY(${scrolled * 0.38}px)`;
+                if (layers.alpineGoat) layers.alpineGoat.style.transform = `translateY(${scrolled * 0.38}px)`;
+                if (layers.atmosphereFog) layers.atmosphereFog.style.transform = `translateY(${scrolled * 0.05}px)`;
+                
+                ticking = false;
+            }
+
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(updateParallax);
+                    ticking = true;
+                }
+            }, { passive: true });
+        }
+
+        function initSectionObserver() {
+            const sections = document.querySelectorAll('section');
+            const progressDots = document.querySelectorAll('.progress-dot');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.querySelector('.section-inner').classList.add('visible');
+                        
+                        const sectionId = entry.target.id;
+                        progressDots.forEach(dot => {
+                            if (dot.dataset.section === sectionId) {
+                                dot.classList.add('active');
+                            } else {
+                                dot.classList.remove('active');
+                            }
+                        });
+                    }
+                });
+            }, {
+                threshold: 0.3
+            });
+
+            sections.forEach(section => observer.observe(section));
+
+            progressDots.forEach(dot => {
+                dot.addEventListener('click', () => {
+                    const targetId = dot.dataset.section;
+                    const targetSection = document.getElementById(targetId);
+                    if (targetSection) {
+                        targetSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+        }
+
+        function initSmoothScroll() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href === '#') return;
+                    
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initParallax();
+            initSectionObserver();
+            initSmoothScroll();
+        });
+    </script>
+</body>
+</html>
