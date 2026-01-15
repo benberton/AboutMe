@@ -793,11 +793,39 @@
                 --space-xs: 6px;
                 --space-sm: 12px;
                 --space-md: 20px;
-                --space-lg: 28px;
-                --space-xl: 40px;
-                --space-xxl: 56px;
+                --space-lg: 32px;
+                --space-xl: 48px;
+                --space-xxl: 64px;
             }
 
+            /* Simplify landscape for mobile performance */
+            .landscape {
+                opacity: 0.5;
+            }
+
+            .landscape::before,
+            .landscape::after {
+                opacity: 0.4;
+                filter: blur(1.5px);
+            }
+
+            .mountain-mid,
+            .mountain-near,
+            .mountain-fore {
+                opacity: 0.5;
+            }
+
+            .alpine-goat {
+                opacity: 0.12;
+            }
+
+            .alpine-bird,
+            .alpine-trees,
+            .alpine-cabin {
+                display: none;
+            }
+
+            /* Header refinement for thumb reach */
             header {
                 height: 56px;
             }
@@ -806,81 +834,105 @@
                 display: none;
             }
 
+            .header-name {
+                font-size: 0.9375rem;
+            }
+
+            /* Progress indicator - larger touch targets */
             .progress-indicator {
-                right: var(--space-sm);
-                gap: 10px;
+                right: 12px;
+                gap: 14px;
+                padding: 12px 0;
             }
 
             .progress-dot {
-                width: 10px;
-                height: 10px;
-                padding: 12px;
+                width: 12px;
+                height: 12px;
+                padding: 10px;
             }
 
             .progress-dot::before {
-                width: 10px;
-                height: 10px;
+                width: 12px;
+                height: 12px;
             }
 
+            /* Content spacing with better vertical rhythm */
             main {
                 padding-top: 56px;
             }
 
             section {
                 min-height: auto;
-                padding: var(--space-xl) var(--space-md);
+                padding: var(--space-xxl) var(--space-md) var(--space-xl);
+            }
+
+            section:first-of-type {
+                padding-top: var(--space-xl);
             }
 
             .section-inner {
                 max-width: 100%;
+                padding: 0;
             }
 
+            /* Typography optimized for mobile reading */
             h2 {
-                font-size: 2rem;
-                margin-bottom: var(--space-md);
+                font-size: 1.875rem;
+                line-height: 1.25;
+                margin-bottom: var(--space-lg);
                 text-align: center;
+                letter-spacing: -0.01em;
             }
 
             h3 {
-                font-size: 1.25rem;
-                margin-bottom: var(--space-xs);
+                font-size: 1.1875rem;
+                line-height: 1.35;
+                margin-bottom: var(--space-sm);
             }
 
             h4 {
-                font-size: 0.9375rem;
-            }
-
-            .lead {
-                font-size: 1rem;
-                text-align: center;
+                font-size: 0.875rem;
+                letter-spacing: 0.04em;
+                margin-bottom: var(--space-sm);
             }
 
             p {
                 font-size: 0.9375rem;
+                line-height: 1.65;
+                margin-bottom: var(--space-md);
+                max-width: 100%;
             }
 
+            .lead {
+                font-size: 1.0625rem;
+                line-height: 1.7;
+                text-align: center;
+            }
+
+            /* Cards with improved mobile layout */
             .card {
-                padding: var(--space-md);
-                margin-bottom: var(--space-md);
+                padding: var(--space-lg) var(--space-md);
+                margin-bottom: var(--space-lg);
+                border-radius: 0;
             }
 
             .card-with-logo {
                 grid-template-columns: 1fr;
-                gap: var(--space-sm);
+                gap: var(--space-md);
                 text-align: center;
             }
 
             .card-logo {
-                width: 64px;
-                height: 64px;
-                margin: 0 auto var(--space-xs) auto;
+                width: 68px;
+                height: 68px;
+                margin: 0 auto var(--space-sm) auto;
                 object-fit: contain;
             }
 
             .card-logo.eth-logo {
-                width: 80px;
-                height: 60px;
-                margin: 0 auto var(--space-xs) auto;
+                width: 88px;
+                height: 66px;
+                margin: 0 auto var(--space-sm) auto;
             }
 
             .card-content {
@@ -888,39 +940,62 @@
             }
 
             .card-content h3,
-            .card-content h4,
-            .card-content p,
-            .card-content ul {
+            .card-content h4 {
                 text-align: center;
             }
 
-            .card-content h3,
-            .card-content h4,
             .card-content p {
                 text-align: center;
+                margin-left: auto;
+                margin-right: auto;
             }
 
+            .card-content ul {
+                text-align: left;
+                max-width: 420px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            /* Location with proper flag sizing */
             .location {
                 justify-content: center;
+                font-size: 0.8125rem;
+                gap: 6px;
             }
 
+            .flag-icon {
+                height: 11px;
+            }
+
+            /* Timeline refinement */
             .timeline {
-                padding-left: var(--space-sm);
+                padding-left: 20px;
+                position: relative;
             }
 
             .timeline::before {
-                left: 0;
+                left: 4px;
+                width: 2px;
+                top: 4px;
+            }
+
+            .timeline-item {
+                margin-bottom: var(--space-lg);
+                position: relative;
             }
 
             .timeline-item::before {
-                left: -9px;
-                width: 7px;
-                height: 7px;
+                left: -19px;
+                top: 4px;
+                width: 8px;
+                height: 8px;
             }
 
+            /* Intro section mobile-optimized */
             #intro .section-inner {
                 grid-template-columns: 1fr;
-                gap: var(--space-lg);
+                gap: var(--space-xl);
             }
 
             #intro .intro-image {
@@ -936,7 +1011,10 @@
                 text-align: center;
             }
 
-            #intro .intro-content h2,
+            #intro .intro-content h2 {
+                font-size: 2rem;
+            }
+
             #intro .intro-content p {
                 text-align: center;
             }
@@ -947,27 +1025,40 @@
                 margin-top: 0;
             }
 
+            /* Skills with better mobile layout */
             .skills {
                 justify-content: center;
-                gap: 6px;
+                gap: 8px;
+                margin-top: var(--space-md);
             }
 
             .skill-tag {
                 font-size: 0.8125rem;
-                padding: 3px 10px;
+                padding: 5px 12px;
+                border-radius: 6px;
             }
 
+            /* Contact links thumb-friendly */
             .contact-links {
                 flex-direction: column;
-                gap: var(--space-sm);
+                gap: var(--space-md);
                 align-items: center;
+                margin-top: var(--space-lg);
             }
 
             .contact-link {
-                font-size: 0.9375rem;
+                font-size: 1rem;
+                padding: var(--space-xs) 0;
             }
 
-            /* Disable hover effects on mobile */
+            /* Footer spacing */
+            footer {
+                padding: var(--space-xl) var(--space-md);
+                font-size: 0.875rem;
+                line-height: 1.6;
+            }
+
+            /* Disable hover effects on touch devices */
             .card:hover {
                 transform: none;
                 border-color: rgba(232, 234, 237, 0.6);
@@ -993,26 +1084,12 @@
                 display: none;
             }
 
-            /* Reduce mountain prominence on mobile */
-            .landscape::before,
-            .landscape::after {
-                opacity: 0.7;
+            .progress-dot:hover {
+                transform: none;
             }
 
-            .mountain-mid::before,
-            .mountain-mid::after,
-            .mountain-near::before,
-            .mountain-near::after,
-            .mountain-fore::before,
-            .mountain-fore::after {
-                opacity: 0.6;
-            }
-
-            /* Hide subtle alpine details on small screens */
-            .alpine-bird,
-            .alpine-trees,
-            .alpine-cabin {
-                display: none;
+            .progress-dot:hover::after {
+                transform: translate(-50%, -50%) scale(0);
             }
         }
 
@@ -1022,33 +1099,86 @@
                 --space-sm: 8px;
                 --space-md: 16px;
                 --space-lg: 24px;
-                --space-xl: 32px;
-                --space-xxl: 48px;
+                --space-xl: 40px;
+                --space-xxl: 56px;
             }
 
+            /* Further simplify mountains for small screens */
+            .landscape {
+                opacity: 0.35;
+            }
+
+            .mountain-mid,
+            .mountain-near {
+                opacity: 0.4;
+            }
+
+            .mountain-fore {
+                opacity: 0.35;
+            }
+
+            .alpine-goat {
+                display: none;
+            }
+
+            /* Compact header for small screens */
+            header {
+                height: 52px;
+            }
+
+            .header-name {
+                font-size: 0.875rem;
+            }
+
+            main {
+                padding-top: 52px;
+            }
+
+            /* Tighter vertical spacing for small screens */
+            section {
+                padding: var(--space-xl) var(--space-md);
+            }
+
+            section:first-of-type {
+                padding-top: var(--space-lg);
+            }
+
+            /* Refined typography for small screens */
             h2 {
-                font-size: 1.75rem;
+                font-size: 1.625rem;
+                line-height: 1.3;
+                margin-bottom: var(--space-md);
             }
 
             h3 {
-                font-size: 1.125rem;
+                font-size: 1.0625rem;
+                margin-bottom: var(--space-xs);
             }
 
-            section {
-                padding: var(--space-lg) var(--space-sm);
+            h4 {
+                font-size: 0.8125rem;
             }
 
-            .section-inner {
-                padding: 0;
+            p {
+                font-size: 0.875rem;
+                line-height: 1.7;
             }
 
+            .lead {
+                font-size: 1rem;
+                line-height: 1.65;
+            }
+
+            /* Compact card layout */
             .card {
-                padding: var(--space-sm) var(--space-md);
+                padding: var(--space-md);
+                margin-bottom: var(--space-md);
             }
 
             .card-logo {
                 width: 56px;
                 height: 56px;
+                margin-bottom: var(--space-xs);
             }
 
             .card-logo.eth-logo {
@@ -1056,33 +1186,83 @@
                 height: 54px;
             }
 
+            /* Smaller headshot for small screens */
             .headshot-wrapper {
-                width: 160px;
-                height: 160px;
+                width: 140px;
+                height: 140px;
             }
 
+            /* Compact flag icons */
             .flag-icon {
-                height: 10px;
+                height: 9px;
             }
 
+            .location {
+                font-size: 0.75rem;
+                gap: 5px;
+            }
+
+            /* Compact skills */
             .skills {
-                gap: 4px;
+                gap: 6px;
             }
 
             .skill-tag {
                 font-size: 0.75rem;
-                padding: 2px 8px;
+                padding: 4px 10px;
             }
 
+            /* Compact timeline */
+            .timeline {
+                padding-left: 18px;
+            }
+
+            .timeline::before {
+                left: 4px;
+                top: 4px;
+            }
+
+            .timeline-item {
+                margin-bottom: var(--space-md);
+            }
+
+            .timeline-item::before {
+                left: -16px;
+                top: 4px;
+                width: 6px;
+                height: 6px;
+            }
+
+            /* Compact contact links */
+            .contact-links {
+                gap: var(--space-sm);
+            }
+
+            .contact-link {
+                font-size: 0.9375rem;
+            }
+
+            /* Compact footer */
             footer {
+                padding: var(--space-lg) var(--space-sm);
                 font-size: 0.8125rem;
-                padding: var(--space-md) var(--space-sm);
             }
 
-            /* Further reduce mountains on very small screens */
-            .alpine-goat {
-                opacity: 0.15;
-                transform: scale(0.85);
+            /* Smaller progress dots */
+            .progress-indicator {
+                right: 10px;
+                gap: 12px;
+            }
+
+            .progress-dot {
+                width: 10px;
+                height: 10px;
+                padding: 9px;
+            }
+
+            .progress-dot::before {
+                width: 10px;
+                height: 10px;
             }
         }
 
@@ -1391,6 +1571,7 @@
 
     <script>
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const isMobile = window.matchMedia('(max-width: 768px)').matches;
 
         function initParallax() {
             if (prefersReducedMotion) return;
@@ -1404,17 +1585,20 @@
                 atmosphereFog: document.querySelector('.atmosphere-fog')
             };
             
+            // Reduce parallax intensity on mobile for better performance
+            const multiplier = isMobile ? 0.4 : 1;
+            
             let ticking = false;
 
             function updateParallax() {
                 const scrolled = window.pageYOffset;
                 
-                if (layers.landscape) layers.landscape.style.transform = `translateY(${scrolled * 0.08}px)`;
-                if (layers.mountainMid) layers.mountainMid.style.transform = `translateY(${scrolled * 0.22}px)`;
-                if (layers.mountainNear) layers.mountainNear.style.transform = `translateY(${scrolled * 0.32}px)`;
-                if (layers.mountainFore) layers.mountainFore.style.transform = `translateY(${scrolled * 0.38}px)`;
-                if (layers.alpineGoat) layers.alpineGoat.style.transform = `translateY(${scrolled * 0.38}px)`;
-                if (layers.atmosphereFog) layers.atmosphereFog.style.transform = `translateY(${scrolled * 0.05}px)`;
+                if (layers.landscape) layers.landscape.style.transform = `translateY(${scrolled * 0.08 * multiplier}px)`;
+                if (layers.mountainMid) layers.mountainMid.style.transform = `translateY(${scrolled * 0.22 * multiplier}px)`;
+                if (layers.mountainNear) layers.mountainNear.style.transform = `translateY(${scrolled * 0.32 * multiplier}px)`;
+                if (layers.mountainFore) layers.mountainFore.style.transform = `translateY(${scrolled * 0.38 * multiplier}px)`;
+                if (layers.alpineGoat) layers.alpineGoat.style.transform = `translateY(${scrolled * 0.38 * multiplier}px)`;
+                if (layers.atmosphereFog) layers.atmosphereFog.style.transform = `translateY(${scrolled * 0.05 * multiplier}px)`;
                 
                 ticking = false;
             }
