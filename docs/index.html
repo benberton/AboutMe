@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#F8F9FA">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <title>Ben Berton</title>
     <meta name="description" content="Ben Berton — Technology, Policy, and Innovation">
     
@@ -73,6 +76,8 @@
             background: var(--sky-light);
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            -webkit-tap-highlight-color: rgba(44, 62, 63, 0.1);
         }
 
         /* Sky gradient with light source */
@@ -394,11 +399,25 @@
             border: none;
             cursor: pointer;
             transition: all var(--transition-smooth);
-            padding: 0;
+            padding: 12px;
             position: relative;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .progress-dot::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--stone-light);
+            transform: translate(-50%, -50%);
+            transition: all var(--transition-smooth);
+        }
+
+        .progress-dot::after {
             content: '';
             position: absolute;
             top: 50%;
@@ -783,6 +802,15 @@
 
         /* Responsive */
         @media (max-width: 768px) {
+            :root {
+                --space-xs: 6px;
+                --space-sm: 12px;
+                --space-md: 20px;
+                --space-lg: 28px;
+                --space-xl: 40px;
+                --space-xxl: 56px;
+            }
+
             header {
                 height: 56px;
             }
@@ -793,23 +821,119 @@
 
             .progress-indicator {
                 right: var(--space-sm);
+                gap: 10px;
+            }
+
+            .progress-dot {
+                width: 10px;
+                height: 10px;
+                padding: 12px;
+            }
+
+            .progress-dot::before {
+                width: 10px;
+                height: 10px;
+            }
+
+            main {
+                padding-top: 56px;
             }
 
             section {
-                padding: var(--space-xl) var(--space-sm);
+                min-height: auto;
+                padding: var(--space-xl) var(--space-md);
+            }
+
+            .section-inner {
+                max-width: 100%;
             }
 
             h2 {
                 font-size: 2rem;
+                margin-bottom: var(--space-md);
+                text-align: center;
+            }
+
+            h3 {
+                font-size: 1.25rem;
+                margin-bottom: var(--space-xs);
+            }
+
+            h4 {
+                font-size: 0.9375rem;
+            }
+
+            .lead {
+                font-size: 1rem;
+                text-align: center;
+            }
+
+            p {
+                font-size: 0.9375rem;
+            }
+
+            .card {
+                padding: var(--space-md);
+                margin-bottom: var(--space-md);
+            }
+
+            .card-with-logo {
+                grid-template-columns: 1fr;
+                gap: var(--space-sm);
+                text-align: center;
+            }
+
+            .card-logo {
+                width: 64px;
+                height: 64px;
+                margin: 0 auto var(--space-xs) auto;
+                object-fit: contain;
+            }
+
+            .card-logo.eth-logo {
+                width: 80px;
+                height: 60px;
+                margin: 0 auto var(--space-xs) auto;
+            }
+
+            .card-content {
+                text-align: center;
+            }
+
+            .card-content h3,
+            .card-content h4,
+            .card-content p,
+            .card-content ul {
+                text-align: center;
+            }
+
+            .card-content h3,
+            .card-content h4,
+            .card-content p {
+                text-align: center;
+            }
+
+            .location {
+                justify-content: center;
             }
 
             .timeline {
                 padding-left: var(--space-sm);
             }
 
+            .timeline::before {
+                left: 0;
+            }
+
+            .timeline-item::before {
+                left: -9px;
+                width: 7px;
+                height: 7px;
+            }
+
             #intro .section-inner {
                 grid-template-columns: 1fr;
-                gap: var(--space-md);
+                gap: var(--space-lg);
             }
 
             #intro .intro-image {
@@ -822,6 +946,127 @@
             #intro .intro-content {
                 grid-column: 1;
                 grid-row: 2;
+                text-align: center;
+            }
+
+            #intro .intro-content h2,
+            #intro .intro-content p {
+                text-align: center;
+            }
+
+            .headshot-wrapper {
+                width: 180px;
+                height: 180px;
+                margin-top: 0;
+            }
+
+            .skills {
+                justify-content: center;
+                gap: 6px;
+            }
+
+            .skill-tag {
+                font-size: 0.8125rem;
+                padding: 3px 10px;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                gap: var(--space-sm);
+                align-items: center;
+            }
+
+            .contact-link {
+                font-size: 0.9375rem;
+            }
+
+            /* Disable hover effects on mobile */
+            .card:hover {
+                transform: none;
+                border-color: rgba(232, 234, 237, 0.6);
+            }
+
+            .card:hover::before {
+                box-shadow: none;
+            }
+
+            .skill-tag:hover {
+                transform: none;
+            }
+
+            .contact-link:hover {
+                transform: none;
+            }
+
+            .contact-link::before {
+                display: none;
+            }
+
+            .header-link::after {
+                display: none;
+            }
+
+            /* Reduce mountain prominence on mobile */
+            .landscape::before,
+            .landscape::after {
+                opacity: 0.7;
+            }
+
+            .mountain-mid::before,
+            .mountain-mid::after,
+            .mountain-near::before,
+            .mountain-near::after,
+            .mountain-fore::before,
+            .mountain-fore::after {
+                opacity: 0.6;
+            }
+
+            /* Hide subtle alpine details on small screens */
+            .alpine-bird,
+            .alpine-trees,
+            .alpine-cabin {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            :root {
+                --space-xs: 4px;
+                --space-sm: 8px;
+                --space-md: 16px;
+                --space-lg: 24px;
+                --space-xl: 32px;
+                --space-xxl: 48px;
+            }
+
+            h2 {
+                font-size: 1.75rem;
+            }
+
+            h3 {
+                font-size: 1.125rem;
+            }
+
+            section {
+                padding: var(--space-lg) var(--space-sm);
+            }
+
+            .section-inner {
+                padding: 0;
+            }
+
+            .card {
+                padding: var(--space-sm) var(--space-md);
+            }
+
+            .card-logo {
+                width: 56px;
+                height: 56px;
+            }
+
+            .card-logo.eth-logo {
+                width: 72px;
+                height: 54px;
             }
 
             .headshot-wrapper {
@@ -829,8 +1074,28 @@
                 height: 160px;
             }
 
+            .flag-icon {
+                height: 10px;
+            }
+
+            .skills {
+                gap: 4px;
+            }
+
+            .skill-tag {
+                font-size: 0.75rem;
+                padding: 2px 8px;
+            }
+
+            footer {
+                font-size: 0.8125rem;
+                padding: var(--space-md) var(--space-sm);
+            }
+
+            /* Further reduce mountains on very small screens */
             .alpine-goat {
-                display: none;
+                opacity: 0.15;
+                transform: scale(0.85);
             }
         }
 
