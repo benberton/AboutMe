@@ -41,7 +41,7 @@ AboutMe/
 │       ├── headshot.jpg
 │       ├── ETH_Logo.png
 │       ├── Gonzaga_Logo.png
-│       └── Kaiser_logo.png
+│       └── Kaiser_Logo.png
 ├── extra_html.html
 └── LICENSE.txt
 ```
