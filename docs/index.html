@@ -399,7 +399,7 @@
 
         section {
             min-height: 100vh;
-            padding: var(--space-xxl) var(--space-md);
+            padding: var(--space-xl) var(--space-md);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -408,6 +408,11 @@
 
         section:nth-child(even) {
             background: rgba(248, 249, 250, 0.5);
+        }
+
+        #interests {
+            min-height: auto;
+            padding: var(--space-lg) var(--space-md);
         }
 
         .section-inner {
@@ -437,6 +442,8 @@
         .section-inner.visible > *:nth-child(4) { transition-delay: 250ms; opacity: 1; transform: translateY(0); }
         .section-inner.visible > *:nth-child(5) { transition-delay: 300ms; opacity: 1; transform: translateY(0); }
         .section-inner.visible > *:nth-child(6) { transition-delay: 350ms; opacity: 1; transform: translateY(0); }
+        .section-inner.visible > *:nth-child(7) { transition-delay: 400ms; opacity: 1; transform: translateY(0); }
+        .section-inner.visible > *:nth-child(8) { transition-delay: 450ms; opacity: 1; transform: translateY(0); }
 
         /* Intro section with headshot */
         #intro .section-inner {
@@ -1272,17 +1279,10 @@
                     <p style="font-size: 0.875rem; color: var(--stone-dark); margin-bottom: var(--space-sm);">Hello —</p>
                     <h2>I'm Ben Berton</h2>
                     <p class="lead">
-                        I'm currently pursuing a Master of Science in Management, Technology, and Economics at ETH Zürich, 
-                        focusing on the intersection of data science, policy, and innovation. My work spans technology 
-                        consulting, data analytics, and product development, with a particular interest in how technology 
-                        shapes public policy and organizational strategy.
+                        I’m a graduate student at ETH Zürich studying Science, Technology, and Policy, with a background in computer science and experience building data-driven tools in industry.
                     </p>
                     <p>
-                        Previously, I worked as a Technology Strategy Consultant, helping organizations leverage data and 
-                        digital tools to solve complex problems. I'm drawn to roles that combine technical depth with 
-                        strategic thinking—building systems that matter.
-                    </p>
-                </div>
+						I’m interested in how technology and technology policy can be leveraged to create real-world impact, and in building software that translates analytical rigor into practical, deployable systems.                </div>
                 <div class="intro-image">
                     <div class="headshot-wrapper">
                         <img src="images/headshot.jpg" alt="Ben Berton" class="headshot">
@@ -1309,13 +1309,13 @@
                             <span>Zürich, Switzerland</span>
                         </p>
                         <p style="color: var(--stone-dark); margin: 10px 0 6px 0; font-size: 0.9375rem; line-height: 1.5;">
-                            Master of Science in Management, Technology, and Economics
+                            Master of Science in Science, Technology, and Policy
                         </p>
                         <p style="font-size: 0.8125rem; color: var(--stone); margin-bottom: var(--space-md); font-weight: 400;">
                             September 2025 – Present
                         </p>
                         <p>
-                            Concentrating on data science, innovation management, and the interplay between technology and policy.
+                            Concentrating on computers science, innovation management, and the interplay between technology and policy.
                         </p>
                     </div>
                 </div>
@@ -1356,7 +1356,6 @@
                     <span class="skill-tag">C++</span>
                     <span class="skill-tag">Java</span>
                     <span class="skill-tag">JavaScript</span>
-                    <span class="skill-tag">Node.js</span>
                     <span class="skill-tag">HTML/CSS</span>
                     <span class="skill-tag">SQL</span>
                     <span class="skill-tag">MariaDB</span>
@@ -1505,13 +1504,11 @@
             <div class="section-inner">
                 <h2>Interests</h2>
                 <p class="lead">
-                    I'm particularly interested in the application of technology to policy challenges—how data systems, 
-                    digital infrastructure, and algorithmic tools can support better governance and more equitable outcomes.
+                    I’m particularly interested in the application of technology to policy challenges, including how data systems, digital infrastructure, and algorithmic tools can support better governance and more equitable outcomes.
                 </p>
                 <p>
-                    Outside of work, I spend time hiking in the Swiss Alps, reading about institutional design and innovation 
-                    policy, and tinkering with personal coding projects. I'm always interested in conversations about technology's 
-                    role in society and how we can build systems that work for everyone.
+                   Outside of work, I spend time weightlifting, hiking in the Swiss Alps, and playing basketball and chess.
+				    I enjoy working on small coding projects and having conversations about how technology is used in practice.
                 </p>
             </div>
         </section>
