@@ -1,7 +1,0 @@
-.rescale{
-    transition: all 250ms;
-}
-
-.rescale:hover{
-    scale: 1.05;
-}
