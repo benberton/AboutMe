@@ -395,11 +395,6 @@ section:nth-child(even) {
     padding-bottom: calc(var(--space-xxl) * 3);
 }
 
-#education,
-#experience {
-    padding-bottom: calc(var(--space-xxl) * 2);
-}
-
 #interests {
     min-height: auto;
     padding: var(--space-lg) var(--space-md);
