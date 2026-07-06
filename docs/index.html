@@ -24,15 +24,24 @@
             --paper: #FAFAF7;
             --paper-raise: #FFFFFF;
             --mist: #EFF1EC;
-            --line: #E3E6E0;
+            --line: rgba(29, 42, 40, 0.10);
+            --hairline: rgba(29, 42, 40, 0.06);
             --ink: #1D2A28;
             --muted: #5F6E6A;
             --faint: #8A968F;
             --accent: #C13B33;
             --accent-deep: #A32E27;
-            --ridge-1: #EAEDE8;
-            --ridge-2: #DDE1DB;
-            --ridge-3: #CFD5CE;
+            --ridge-1: #ECEEE9;
+            --ridge-2: #E2E5DE;
+            --ridge-3: #D6DBD3;
+            --ridge-4: #C9D0C7;
+            --ridge-5: #BCC4BA;
+
+            /* Shadows (ink-tinted, layered) */
+            --shadow-rest: 0 1px 2px rgba(29, 42, 40, 0.04);
+            --shadow-lift: 0 1px 2px rgba(29, 42, 40, 0.05),
+                           0 8px 20px rgba(29, 42, 40, 0.06),
+                           0 24px 48px rgba(29, 42, 40, 0.05);
 
             /* Spacing */
             --space-1: 8px;
@@ -69,11 +78,20 @@
 
         body {
             font-family: var(--font-body);
-            background: var(--paper);
+            background-color: var(--paper);
+            /* Faint ink-tinted paper grain */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.114 0 0 0 0 0.165 0 0 0 0 0.157 0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
             color: var(--ink);
             line-height: 1.65;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+            border-radius: 4px;
         }
 
         ::selection {
@@ -105,16 +123,19 @@
             top: var(--space-2);
         }
 
-        /* Scroll-reveal */
+        /* Scroll-reveal: rise, sharpen, settle */
         [data-reveal] {
             opacity: 0;
-            transform: translateY(18px);
-            transition: opacity var(--t-slow), transform var(--t-slow);
+            transform: translateY(16px);
+            filter: blur(5px);
+            transition: opacity var(--t-slow), transform var(--t-slow),
+                        filter var(--t-slow);
         }
 
         [data-reveal].in-view {
             opacity: 1;
             transform: none;
+            filter: blur(0);
         }
 
         /* ---------- Header ---------- */
@@ -135,11 +156,17 @@
             left: 0;
             right: 0;
             height: var(--header-h);
-            background: rgba(250, 250, 247, 0.88);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--line);
+            background: rgba(250, 250, 247, 0.82);
+            backdrop-filter: blur(14px) saturate(1.4);
+            -webkit-backdrop-filter: blur(14px) saturate(1.4);
+            border-bottom: 1px solid transparent;
+            transition: border-color var(--t-med), box-shadow var(--t-med);
             z-index: 200;
+        }
+
+        header.scrolled {
+            border-bottom-color: var(--hairline);
+            box-shadow: 0 4px 24px rgba(29, 42, 40, 0.05);
         }
 
         .header-inner {
@@ -219,12 +246,13 @@
 
         .eyebrow {
             display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
+            align-items: baseline;
+            gap: 14px;
+            font-family: var(--font-display);
+            font-style: italic;
+            font-weight: 500;
+            font-size: 1.0625rem;
+            letter-spacing: 0.04em;
             color: var(--accent);
             margin-bottom: var(--space-3);
         }
@@ -232,25 +260,28 @@
         .eyebrow::after {
             content: '';
             height: 1px;
-            width: 48px;
-            background: var(--line);
+            width: 72px;
+            align-self: center;
+            background: linear-gradient(to right, var(--line), transparent);
         }
 
         h1 {
             font-family: var(--font-display);
             font-weight: 600;
-            font-size: clamp(2.75rem, 6.5vw, 4.25rem);
-            line-height: 1.05;
-            letter-spacing: -0.015em;
+            font-size: clamp(3rem, 7vw, 4.75rem);
+            line-height: 1.02;
+            letter-spacing: -0.02em;
+            text-wrap: balance;
         }
 
         h2 {
             font-family: var(--font-display);
             font-weight: 600;
-            font-size: clamp(1.75rem, 3.4vw, 2.375rem);
-            line-height: 1.15;
-            letter-spacing: -0.01em;
+            font-size: clamp(1.75rem, 3.4vw, 2.5rem);
+            line-height: 1.12;
+            letter-spacing: -0.015em;
             margin-bottom: var(--space-4);
+            text-wrap: balance;
         }
 
         h3 {
@@ -337,34 +368,46 @@
             gap: 8px;
             font-size: 0.875rem;
             font-weight: 600;
+            letter-spacing: 0.01em;
             text-decoration: none;
             border-radius: 999px;
-            padding: 12px 24px;
+            padding: 12px 26px;
             transition: background var(--t-fast), color var(--t-fast),
-                        border-color var(--t-fast), transform var(--t-med);
+                        border-color var(--t-fast), transform var(--t-med),
+                        box-shadow var(--t-med);
         }
 
         .btn:hover {
             transform: translateY(-2px);
         }
 
+        .btn:active {
+            transform: translateY(0);
+        }
+
         .btn-primary {
             background: var(--ink);
             color: var(--paper);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08),
+                        var(--shadow-rest);
         }
 
         .btn-primary:hover {
             background: var(--accent-deep);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12),
+                        0 8px 20px rgba(163, 46, 39, 0.22);
         }
 
         .btn-ghost {
             border: 1px solid var(--line);
             background: var(--paper-raise);
             color: var(--ink);
+            box-shadow: var(--shadow-rest);
         }
 
         .btn-ghost:hover {
-            border-color: var(--ink);
+            border-color: rgba(29, 42, 40, 0.35);
+            box-shadow: var(--shadow-lift);
         }
 
         /* Headshot with offset editorial frame */
@@ -377,10 +420,18 @@
         .portrait::before {
             content: '';
             position: absolute;
-            inset: 14px -14px -14px 14px;
+            inset: 16px -16px -16px 16px;
             border: 1px solid var(--line);
-            border-radius: 12px;
-            background: var(--mist);
+            border-radius: 14px;
+            background-color: var(--paper-raise);
+            /* Fine diagonal hatching, like a print margin */
+            background-image: repeating-linear-gradient(
+                45deg,
+                rgba(29, 42, 40, 0.07) 0,
+                rgba(29, 42, 40, 0.07) 1px,
+                transparent 1px,
+                transparent 7px
+            );
             z-index: 0;
             transition: transform var(--t-med);
         }
@@ -391,10 +442,11 @@
             aspect-ratio: 4 / 5;
             object-fit: cover;
             object-position: center 25%;
-            border-radius: 12px;
+            border-radius: 14px;
             display: block;
             z-index: 1;
             filter: saturate(0.92);
+            box-shadow: var(--shadow-lift);
             transition: filter var(--t-med);
         }
 
@@ -417,7 +469,7 @@
         .ridge {
             display: block;
             width: 100%;
-            height: clamp(70px, 11vw, 150px);
+            height: clamp(90px, 13vw, 190px);
         }
 
         .ridge svg {
@@ -426,8 +478,28 @@
             display: block;
         }
 
-        .ridge--flip svg {
-            transform: scaleY(-1);
+        .ridge svg path {
+            will-change: transform;
+        }
+
+        /* Faint topographic contours behind the hero */
+        .hero-topo {
+            position: absolute;
+            top: -90px;
+            right: -140px;
+            width: 620px;
+            height: 620px;
+            opacity: 0.055;
+            pointer-events: none;
+        }
+
+        .hero-topo svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        #about .container {
+            position: relative;
         }
 
         /* ---------- Content sections ---------- */
@@ -449,16 +521,17 @@
 
         .school-card {
             background: var(--paper-raise);
-            border: 1px solid var(--line);
-            border-radius: 14px;
+            border: 1px solid var(--hairline);
+            border-radius: 16px;
             padding: var(--space-4);
+            box-shadow: var(--shadow-rest);
             transition: transform var(--t-med), box-shadow var(--t-med), border-color var(--t-med);
         }
 
         .school-card:hover {
             transform: translateY(-4px);
-            border-color: var(--ridge-3);
-            box-shadow: 0 16px 40px rgba(29, 42, 40, 0.07);
+            border-color: var(--line);
+            box-shadow: var(--shadow-lift);
         }
 
         .school-head {
@@ -471,9 +544,10 @@
         .logo-tile {
             width: 60px;
             height: 60px;
-            border: 1px solid var(--line);
-            border-radius: 12px;
+            border-radius: 14px;
             background: #fff;
+            box-shadow: inset 0 0 0 1px var(--hairline),
+                        var(--shadow-rest);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -490,6 +564,7 @@
             font-size: 0.8125rem;
             color: var(--faint);
             margin-top: 2px;
+            font-variant-numeric: tabular-nums;
         }
 
         .school-degree {
@@ -531,22 +606,43 @@
             font-weight: 500;
             color: var(--muted);
             background: var(--paper-raise);
-            border: 1px solid var(--line);
+            border: 1px solid var(--hairline);
             border-radius: 999px;
             padding: 6px 14px;
-            transition: color var(--t-fast), border-color var(--t-fast), transform var(--t-med);
+            box-shadow: var(--shadow-rest);
+            transition: color var(--t-fast), border-color var(--t-fast),
+                        transform var(--t-med), box-shadow var(--t-med);
         }
 
         .chip:hover {
             color: var(--ink);
             border-color: var(--accent);
             transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(29, 42, 40, 0.08);
         }
 
         /* Experience timeline */
         .timeline {
             display: grid;
             gap: var(--space-3);
+            position: relative;
+        }
+
+        /* Continuous spine connecting the date markers */
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: calc(168px + var(--space-4) / 2 - 0.5px);
+            top: 48px;
+            bottom: 40px;
+            width: 1px;
+            background: linear-gradient(
+                to bottom,
+                transparent,
+                var(--line) 12%,
+                var(--line) 88%,
+                transparent
+            );
         }
 
         .job {
@@ -559,6 +655,7 @@
             font-size: 0.8125rem;
             font-weight: 500;
             color: var(--faint);
+            font-variant-numeric: tabular-nums;
             padding-top: calc(var(--space-4) + 4px);
             position: relative;
         }
@@ -566,27 +663,29 @@
         .job-when::before {
             content: '';
             position: absolute;
-            right: calc(-1 * var(--space-4) / 2 - 4px);
+            right: calc(-1 * var(--space-4) / 2 - 4.5px);
             top: calc(var(--space-4) + 10px);
-            width: 8px;
-            height: 8px;
+            width: 7px;
+            height: 7px;
             border-radius: 50%;
-            background: var(--accent);
-            box-shadow: 0 0 0 4px rgba(193, 59, 51, 0.12);
+            background: var(--paper);
+            border: 2px solid var(--accent);
+            box-shadow: 0 0 0 4px rgba(193, 59, 51, 0.10);
         }
 
         .job-card {
             background: var(--paper-raise);
-            border: 1px solid var(--line);
-            border-radius: 14px;
+            border: 1px solid var(--hairline);
+            border-radius: 16px;
             padding: var(--space-4);
+            box-shadow: var(--shadow-rest);
             transition: transform var(--t-med), box-shadow var(--t-med), border-color var(--t-med);
         }
 
         .job-card:hover {
             transform: translateY(-4px);
-            border-color: var(--ridge-3);
-            box-shadow: 0 16px 40px rgba(29, 42, 40, 0.07);
+            border-color: var(--line);
+            box-shadow: var(--shadow-lift);
         }
 
         .job-head {
@@ -638,16 +737,17 @@
 
         .focus-tile {
             background: var(--paper-raise);
-            border: 1px solid var(--line);
-            border-radius: 14px;
+            border: 1px solid var(--hairline);
+            border-radius: 16px;
             padding: var(--space-4);
+            box-shadow: var(--shadow-rest);
             transition: transform var(--t-med), box-shadow var(--t-med), border-color var(--t-med);
         }
 
         .focus-tile:hover {
             transform: translateY(-4px);
-            border-color: var(--accent);
-            box-shadow: 0 16px 40px rgba(29, 42, 40, 0.07);
+            border-color: rgba(193, 59, 51, 0.45);
+            box-shadow: var(--shadow-lift);
         }
 
         .focus-icon {
@@ -667,7 +767,7 @@
             height: 24px;
             stroke: var(--ink);
             fill: none;
-            stroke-width: 1.75;
+            stroke-width: 1.5;
             stroke-linecap: round;
             stroke-linejoin: round;
             transition: stroke var(--t-med), transform var(--t-med);
@@ -783,6 +883,14 @@
                 display: none;
             }
 
+            .timeline::before {
+                display: none;
+            }
+
+            .hero-topo {
+                display: none;
+            }
+
             .focus-grid {
                 grid-template-columns: 1fr;
             }
@@ -818,7 +926,7 @@
         /* ---------- Print & accessibility ---------- */
 
         @media print {
-            header, .progress-bar, .ridge, .hero-actions, footer {
+            header, .progress-bar, .ridge, .hero-topo, .hero-actions, footer {
                 display: none;
             }
 
@@ -872,6 +980,16 @@
 
         <!-- ===== HERO ===== -->
         <section id="about">
+            <!-- Topographic contour lines, Swiss-map style -->
+            <div class="hero-topo" aria-hidden="true">
+                <svg viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="var(--ink)" stroke-width="1.2">
+                    <path d="M300 64 C 428 56, 534 148, 536 264 C 538 386, 442 506, 306 516 C 178 526, 82 424, 78 300 C 74 186, 184 72, 300 64 Z"/>
+                    <path d="M300 116 C 400 108, 482 180, 484 268 C 486 366, 408 458, 302 466 C 206 474, 132 396, 130 302 C 128 212, 210 124, 300 116 Z"/>
+                    <path d="M298 166 C 376 160, 434 216, 436 278 C 438 350, 380 412, 300 418 C 232 424, 180 370, 178 300 C 176 238, 226 172, 298 166 Z"/>
+                    <path d="M298 214 C 352 210, 390 248, 392 290 C 394 340, 354 380, 300 384 C 254 388, 220 350, 218 300 C 216 256, 252 218, 298 214 Z"/>
+                    <path d="M298 258 C 330 256, 352 278, 352 300 C 352 326, 330 346, 300 348 C 274 350, 256 328, 256 302 C 256 280, 272 260, 298 258 Z"/>
+                </svg>
+            </div>
             <div class="container">
                 <div class="hero-grid">
                     <div data-reveal>
@@ -895,12 +1013,15 @@
                     </div>
                 </div>
             </div>
-            <!-- Hand-drawn ridgeline divider -->
-            <div class="ridge" aria-hidden="true">
-                <svg viewBox="0 0 1440 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="var(--ridge-1)" d="M0 120 L120 68 L250 108 L420 38 L560 96 L700 52 L840 100 L980 44 L1120 92 L1260 64 L1440 104 L1440 160 L0 160 Z"/>
-                    <path fill="var(--ridge-2)" d="M0 134 L160 94 L320 126 L480 76 L640 116 L800 86 L960 122 L1120 92 L1280 118 L1440 96 L1440 160 L0 160 Z"/>
-                    <path fill="var(--ridge-3)" d="M0 150 L180 120 L360 142 L540 112 L720 136 L900 116 L1080 140 L1260 124 L1440 142 L1440 160 L0 160 Z"/>
+            <!-- Hand-drawn alpine range: five depth layers and a faint sun -->
+            <div class="ridge" aria-hidden="true" data-parallax>
+                <svg viewBox="0 0 1440 220" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="1024" cy="66" r="46" fill="var(--accent)" opacity="0.09"/>
+                    <path class="rl-1" fill="var(--ridge-1)" d="M0 128 L70 110 L128 124 L210 92 L268 112 L340 84 L398 102 L470 70 L540 96 L612 62 L668 86 L748 54 L812 80 L880 50 L948 78 L1010 46 L1082 74 L1150 58 L1218 78 L1286 60 L1352 78 L1440 62 L1440 220 L0 220 Z"/>
+                    <path class="rl-2" fill="var(--ridge-2)" d="M0 148 L84 132 L152 146 L236 118 L300 136 L376 108 L444 128 L516 100 L584 122 L656 94 L724 116 L796 88 L864 110 L936 84 L1004 106 L1072 82 L1140 102 L1212 86 L1280 104 L1348 92 L1440 104 L1440 220 L0 220 Z"/>
+                    <path class="rl-3" fill="var(--ridge-3)" d="M0 164 L96 150 L168 162 L252 140 L324 156 L400 132 L472 150 L548 126 L620 144 L696 120 L768 140 L844 116 L916 136 L992 114 L1064 132 L1136 112 L1208 130 L1284 116 L1356 132 L1440 122 L1440 220 L0 220 Z"/>
+                    <path class="rl-4" fill="var(--ridge-4)" d="M0 180 L110 168 L186 178 L272 158 L348 172 L428 152 L504 168 L584 148 L660 164 L740 146 L816 160 L896 142 L972 158 L1052 140 L1128 154 L1208 138 L1288 152 L1368 142 L1440 150 L1440 220 L0 220 Z"/>
+                    <path class="rl-5" fill="var(--ridge-5)" d="M0 196 L124 188 L204 194 L292 180 L372 190 L456 174 L536 186 L620 172 L700 182 L784 168 L864 178 L948 164 L1028 176 L1112 162 L1192 172 L1276 160 L1356 170 L1440 164 L1440 220 L0 220 Z"/>
                 </svg>
             </div>
         </section>
@@ -1107,11 +1228,13 @@
         </section>
 
         <!-- Closing ridgeline -->
-        <div class="ridge ridge--flip" aria-hidden="true">
-            <svg viewBox="0 0 1440 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill="var(--ridge-1)" d="M0 120 L120 68 L250 108 L420 38 L560 96 L700 52 L840 100 L980 44 L1120 92 L1260 64 L1440 104 L1440 160 L0 160 Z"/>
-                <path fill="var(--ridge-2)" d="M0 134 L160 94 L320 126 L480 76 L640 116 L800 86 L960 122 L1120 92 L1280 118 L1440 96 L1440 160 L0 160 Z"/>
-                <path fill="var(--ridge-3)" d="M0 150 L180 120 L360 142 L540 112 L720 136 L900 116 L1080 140 L1260 124 L1440 142 L1440 160 L0 160 Z"/>
+        <div class="ridge" aria-hidden="true">
+            <svg viewBox="0 0 1440 220" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill="var(--ridge-1)" d="M0 128 L70 110 L128 124 L210 92 L268 112 L340 84 L398 102 L470 70 L540 96 L612 62 L668 86 L748 54 L812 80 L880 50 L948 78 L1010 46 L1082 74 L1150 58 L1218 78 L1286 60 L1352 78 L1440 62 L1440 220 L0 220 Z"/>
+                <path fill="var(--ridge-2)" d="M0 148 L84 132 L152 146 L236 118 L300 136 L376 108 L444 128 L516 100 L584 122 L656 94 L724 116 L796 88 L864 110 L936 84 L1004 106 L1072 82 L1140 102 L1212 86 L1280 104 L1348 92 L1440 104 L1440 220 L0 220 Z"/>
+                <path fill="var(--ridge-3)" d="M0 164 L96 150 L168 162 L252 140 L324 156 L400 132 L472 150 L548 126 L620 144 L696 120 L768 140 L844 116 L916 136 L992 114 L1064 132 L1136 112 L1208 130 L1284 116 L1356 132 L1440 122 L1440 220 L0 220 Z"/>
+                <path fill="var(--ridge-4)" d="M0 180 L110 168 L186 178 L272 158 L348 172 L428 152 L504 168 L584 148 L660 164 L740 146 L816 160 L896 142 L972 158 L1052 140 L1128 154 L1208 138 L1288 152 L1368 142 L1440 150 L1440 220 L0 220 Z"/>
+                <path fill="var(--ridge-5)" d="M0 196 L124 188 L204 194 L292 180 L372 190 L456 174 L536 186 L620 172 L700 182 L784 168 L864 178 L948 164 L1028 176 L1112 162 L1192 172 L1276 160 L1356 170 L1440 164 L1440 220 L0 220 Z"/>
             </svg>
         </div>
     </main>
@@ -1169,22 +1292,39 @@
             }, { rootMargin: '-45% 0px -50% 0px' });
             sections.forEach(function (section) { spyObserver.observe(section); });
 
-            /* Reading progress bar */
+            /* Scroll effects: progress bar, header elevation, ridge parallax */
             var progressBar = document.querySelector('.progress-bar');
+            var headerEl = document.querySelector('header');
+            var ridgeLayers = document.querySelectorAll('.ridge[data-parallax] path[class^="rl-"]');
+            var layerSpeeds = { 'rl-1': 0.02, 'rl-2': 0.04, 'rl-3': 0.06, 'rl-4': 0.08, 'rl-5': 0.11 };
             var ticking = false;
-            function updateProgress() {
+
+            function onScroll() {
+                var scrolled = window.scrollY;
                 var docHeight = document.documentElement.scrollHeight - window.innerHeight;
-                var pct = docHeight > 0 ? (window.scrollY / docHeight) * 100 : 0;
+                var pct = docHeight > 0 ? (scrolled / docHeight) * 100 : 0;
                 progressBar.style.width = pct + '%';
+
+                headerEl.classList.toggle('scrolled', scrolled > 8);
+
+                if (!prefersReducedMotion && window.innerWidth > 860) {
+                    ridgeLayers.forEach(function (layer) {
+                        var speed = layerSpeeds[layer.getAttribute('class')] || 0;
+                        var shift = Math.min(scrolled * speed, 30);
+                        layer.style.transform = 'translateY(' + shift + 'px)';
+                    });
+                }
+
                 ticking = false;
             }
+
             window.addEventListener('scroll', function () {
                 if (!ticking) {
-                    window.requestAnimationFrame(updateProgress);
+                    window.requestAnimationFrame(onScroll);
                     ticking = true;
                 }
             }, { passive: true });
-            updateProgress();
+            onScroll();
         })();
     </script>
 </body>
