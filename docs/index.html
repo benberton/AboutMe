@@ -208,30 +208,30 @@
             transition: color var(--t-fast);
         }
 
-        .site-nav a::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            height: 2px;
-            background: var(--accent);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform var(--t-med);
-        }
-
         .site-nav a:hover {
             color: var(--ink);
         }
 
-        .site-nav a:hover::after,
-        .site-nav a[aria-current="true"]::after {
-            transform: scaleX(1);
-        }
-
         .site-nav a[aria-current="true"] {
             color: var(--ink);
+        }
+
+        /* Single underline that glides between nav links */
+        .nav-ind {
+            position: absolute;
+            bottom: 14px;
+            height: 2px;
+            border-radius: 1px;
+            background: var(--accent);
+            opacity: 0;
+            transition: left 380ms cubic-bezier(0.22, 1, 0.36, 1),
+                        width 380ms cubic-bezier(0.22, 1, 0.36, 1),
+                        opacity var(--t-med);
+            pointer-events: none;
+        }
+
+        .nav-ind.on {
+            opacity: 1;
         }
 
         /* ---------- Sections ---------- */
@@ -468,6 +468,8 @@
         /* Ridge divider (hand-drawn SVG, not a photo) */
         .ridge {
             display: block;
+            position: relative;
+            overflow: hidden;
             width: 100%;
             height: clamp(90px, 13vw, 190px);
         }
@@ -500,6 +502,144 @@
 
         #about .container {
             position: relative;
+        }
+
+        /* Topo rings plot themselves in on load */
+        @media (prefers-reduced-motion: no-preference) {
+            .hero-topo path {
+                stroke-dasharray: 1;
+                stroke-dashoffset: 1;
+                animation: topo-draw 2400ms var(--ease-out) forwards;
+            }
+
+            .hero-topo path:nth-child(2) { animation-delay: 180ms; }
+            .hero-topo path:nth-child(3) { animation-delay: 360ms; }
+            .hero-topo path:nth-child(4) { animation-delay: 540ms; }
+            .hero-topo path:nth-child(5) { animation-delay: 720ms; }
+        }
+
+        @keyframes topo-draw {
+            to { stroke-dashoffset: 0; }
+        }
+
+        /* Name reveal: letters rise through a mask */
+        h1 .word {
+            display: inline-block;
+            overflow: hidden;
+            vertical-align: bottom;
+            padding-bottom: 0.08em;
+            margin-bottom: -0.08em;
+        }
+
+        h1 .char {
+            display: inline-block;
+            transform: translateY(115%) rotate(4deg);
+            animation: char-rise 800ms var(--ease-out) forwards;
+            animation-delay: calc(120ms + var(--i) * 42ms);
+        }
+
+        @keyframes char-rise {
+            to { transform: translateY(0) rotate(0); }
+        }
+
+        /* Drifting mist over the ridge */
+        .mist {
+            position: absolute;
+            left: -20%;
+            width: 140%;
+            height: 46%;
+            bottom: 6%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(250, 250, 247, 0.75) 30%,
+                rgba(250, 250, 247, 0.35) 55%,
+                transparent 80%
+            );
+            filter: blur(7px);
+            animation: mist-drift 70s ease-in-out infinite alternate;
+            pointer-events: none;
+        }
+
+        .mist.m2 {
+            bottom: 24%;
+            height: 28%;
+            opacity: 0.7;
+            animation-duration: 95s;
+            animation-direction: alternate-reverse;
+        }
+
+        @keyframes mist-drift {
+            from { transform: translateX(-5%); }
+            to { transform: translateX(5%); }
+        }
+
+        /* The sun breathes, almost imperceptibly */
+        .ridge circle {
+            animation: sun-breathe 9s ease-in-out infinite alternate;
+        }
+
+        @keyframes sun-breathe {
+            from { opacity: 0.07; }
+            to { opacity: 0.12; }
+        }
+
+        /* Occasional bird crossing the sky */
+        .hero-birds {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .bird {
+            position: absolute;
+            left: -40px;
+            top: var(--y);
+            width: 22px;
+            opacity: 0;
+            animation: fly var(--dur) linear forwards;
+        }
+
+        .bird svg {
+            width: 100%;
+            display: block;
+        }
+
+        @keyframes fly {
+            0%   { transform: translate(0, 0) scale(0.9); opacity: 0; }
+            6%   { opacity: 0.26; }
+            50%  { transform: translate(55vw, -18px) scale(1); }
+            94%  { opacity: 0.26; }
+            100% { transform: translate(110vw, -6px) scale(0.95); opacity: 0; }
+        }
+
+        /* Altimeter: scroll position as altitude */
+        .altimeter {
+            position: fixed;
+            left: 22px;
+            bottom: 20px;
+            z-index: 150;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 14px;
+            border: 1px solid var(--hairline);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.72);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-rest);
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            color: var(--muted);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .altimeter svg {
+            width: 15px;
+            color: var(--accent);
         }
 
         /* ---------- Content sections ---------- */
@@ -891,6 +1031,11 @@
                 display: none;
             }
 
+            .altimeter,
+            .hero-birds {
+                display: none;
+            }
+
             .focus-grid {
                 grid-template-columns: 1fr;
             }
@@ -926,7 +1071,8 @@
         /* ---------- Print & accessibility ---------- */
 
         @media print {
-            header, .progress-bar, .ridge, .hero-topo, .hero-actions, footer {
+            header, .progress-bar, .ridge, .hero-topo, .hero-birds,
+            .altimeter, .hero-actions, footer {
                 display: none;
             }
 
@@ -963,6 +1109,14 @@
     <a href="#main" class="skip-link">Skip to main content</a>
     <div class="progress-bar" aria-hidden="true"></div>
 
+    <!-- Scroll position, read as altitude -->
+    <div class="altimeter" aria-hidden="true">
+        <svg viewBox="0 0 16 10" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round">
+            <path d="M1 9 L6 2 L8.6 5.4 L10.4 3.2 L15 9 Z"/>
+        </svg>
+        <span class="alt-value">0 m</span>
+    </div>
+
     <header>
         <div class="header-inner">
             <a href="#about" class="wordmark">Ben Berton<span class="dot">.</span></a>
@@ -980,35 +1134,37 @@
 
         <!-- ===== HERO ===== -->
         <section id="about">
+            <!-- Sky: occasional birds cross here -->
+            <div class="hero-birds" aria-hidden="true"></div>
             <!-- Topographic contour lines, Swiss-map style -->
             <div class="hero-topo" aria-hidden="true">
                 <svg viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="var(--ink)" stroke-width="1.2">
-                    <path d="M300 64 C 428 56, 534 148, 536 264 C 538 386, 442 506, 306 516 C 178 526, 82 424, 78 300 C 74 186, 184 72, 300 64 Z"/>
-                    <path d="M300 116 C 400 108, 482 180, 484 268 C 486 366, 408 458, 302 466 C 206 474, 132 396, 130 302 C 128 212, 210 124, 300 116 Z"/>
-                    <path d="M298 166 C 376 160, 434 216, 436 278 C 438 350, 380 412, 300 418 C 232 424, 180 370, 178 300 C 176 238, 226 172, 298 166 Z"/>
-                    <path d="M298 214 C 352 210, 390 248, 392 290 C 394 340, 354 380, 300 384 C 254 388, 220 350, 218 300 C 216 256, 252 218, 298 214 Z"/>
-                    <path d="M298 258 C 330 256, 352 278, 352 300 C 352 326, 330 346, 300 348 C 274 350, 256 328, 256 302 C 256 280, 272 260, 298 258 Z"/>
+                    <path pathLength="1" d="M300 64 C 428 56, 534 148, 536 264 C 538 386, 442 506, 306 516 C 178 526, 82 424, 78 300 C 74 186, 184 72, 300 64 Z"/>
+                    <path pathLength="1" d="M300 116 C 400 108, 482 180, 484 268 C 486 366, 408 458, 302 466 C 206 474, 132 396, 130 302 C 128 212, 210 124, 300 116 Z"/>
+                    <path pathLength="1" d="M298 166 C 376 160, 434 216, 436 278 C 438 350, 380 412, 300 418 C 232 424, 180 370, 178 300 C 176 238, 226 172, 298 166 Z"/>
+                    <path pathLength="1" d="M298 214 C 352 210, 390 248, 392 290 C 394 340, 354 380, 300 384 C 254 388, 220 350, 218 300 C 216 256, 252 218, 298 214 Z"/>
+                    <path pathLength="1" d="M298 258 C 330 256, 352 278, 352 300 C 352 326, 330 346, 300 348 C 274 350, 256 328, 256 302 C 256 280, 272 260, 298 258 Z"/>
                 </svg>
             </div>
             <div class="container">
                 <div class="hero-grid">
-                    <div data-reveal>
-                        <span class="hero-kicker">
+                    <div>
+                        <span class="hero-kicker" data-reveal style="transition-delay: 650ms;">
                             <span class="pulse" aria-hidden="true"></span>
                             Zürich, Switzerland · Open to technical roles
                         </span>
-                        <h1>Ben Berton</h1>
-                        <p class="hero-tagline">Computer scientist building practical, data-driven software.</p>
-                        <p class="hero-copy">
+                        <h1 aria-label="Ben Berton">Ben Berton</h1>
+                        <p class="hero-tagline" data-reveal style="transition-delay: 800ms;">Computer scientist building practical, data-driven software.</p>
+                        <p class="hero-copy" data-reveal style="transition-delay: 950ms;">
                             I’m a graduate student at ETH Zürich with industry experience in
                             automation, data pipelines, and full-stack web applications.
                         </p>
-                        <div class="hero-actions">
+                        <div class="hero-actions" data-reveal style="transition-delay: 1100ms;">
                             <a href="#contact" class="btn btn-primary">Get in touch</a>
                             <a href="assets/Ben Berton CV Spring 2026.pdf" class="btn btn-ghost" download>Download CV</a>
                         </div>
                     </div>
-                    <div class="portrait" data-reveal style="transition-delay: 120ms;">
+                    <div class="portrait" data-reveal style="transition-delay: 1000ms;">
                         <img src="images/headshot.jpg" alt="Portrait of Ben Berton">
                     </div>
                 </div>
@@ -1023,6 +1179,8 @@
                     <path class="rl-4" fill="var(--ridge-4)" d="M0 180 L110 168 L186 178 L272 158 L348 172 L428 152 L504 168 L584 148 L660 164 L740 146 L816 160 L896 142 L972 158 L1052 140 L1128 154 L1208 138 L1288 152 L1368 142 L1440 150 L1440 220 L0 220 Z"/>
                     <path class="rl-5" fill="var(--ridge-5)" d="M0 196 L124 188 L204 194 L292 180 L372 190 L456 174 L536 186 L620 172 L700 182 L784 168 L864 178 L948 164 L1028 176 L1112 162 L1192 172 L1276 160 L1356 170 L1440 164 L1440 220 L0 220 Z"/>
                 </svg>
+                <div class="mist m1"></div>
+                <div class="mist m2"></div>
             </div>
         </section>
 
@@ -1256,6 +1414,19 @@
     <script>
         (function () {
             var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+            /* Name reveal: split the h1 into masked, staggered letters */
+            var nameEl = document.querySelector('h1');
+            if (nameEl && !prefersReducedMotion) {
+                var charIndex = 0;
+                nameEl.innerHTML = nameEl.textContent.trim().split(' ').map(function (word) {
+                    var chars = word.split('').map(function (ch) {
+                        return '<span class="char" style="--i:' + (charIndex++) + '">' + ch + '</span>';
+                    }).join('');
+                    return '<span class="word" aria-hidden="true">' + chars + '</span>';
+                }).join(' ');
+            }
 
             /* Scroll-reveal */
             var revealEls = document.querySelectorAll('[data-reveal]');
@@ -1273,8 +1444,28 @@
                 revealEls.forEach(function (el) { revealObserver.observe(el); });
             }
 
-            /* Scrollspy for nav */
+            /* Scrollspy + gliding nav underline */
+            var nav = document.querySelector('.site-nav');
             var navLinks = document.querySelectorAll('.site-nav a');
+            var navInd = document.createElement('span');
+            navInd.className = 'nav-ind';
+            if (nav) nav.appendChild(navInd);
+            var currentLink = null;
+
+            function moveInd(link) {
+                if (!link) { navInd.classList.remove('on'); return; }
+                navInd.style.left = link.offsetLeft + 'px';
+                navInd.style.width = link.offsetWidth + 'px';
+                navInd.classList.add('on');
+            }
+
+            navLinks.forEach(function (link) {
+                link.addEventListener('mouseenter', function () { moveInd(link); });
+            });
+            if (nav) nav.addEventListener('mouseleave', function () { moveInd(currentLink); });
+            window.addEventListener('resize', function () { moveInd(currentLink); });
+            window.addEventListener('load', function () { moveInd(currentLink); });
+
             var sections = document.querySelectorAll('main section[id]');
             var spyObserver = new IntersectionObserver(function (entries) {
                 entries.forEach(function (entry) {
@@ -1283,6 +1474,8 @@
                             var isCurrent = link.getAttribute('href') === '#' + entry.target.id;
                             if (isCurrent) {
                                 link.setAttribute('aria-current', 'true');
+                                currentLink = link;
+                                moveInd(link);
                             } else {
                                 link.removeAttribute('aria-current');
                             }
@@ -1292,26 +1485,38 @@
             }, { rootMargin: '-45% 0px -50% 0px' });
             sections.forEach(function (section) { spyObserver.observe(section); });
 
-            /* Scroll effects: progress bar, header elevation, ridge parallax */
+            /* Scroll effects: progress bar, altimeter, header elevation, ridge parallax */
             var progressBar = document.querySelector('.progress-bar');
             var headerEl = document.querySelector('header');
+            var altValue = document.querySelector('.alt-value');
             var ridgeLayers = document.querySelectorAll('.ridge[data-parallax] path[class^="rl-"]');
             var layerSpeeds = { 'rl-1': 0.02, 'rl-2': 0.04, 'rl-3': 0.06, 'rl-4': 0.08, 'rl-5': 0.11 };
+            var SUMMIT = 4478; /* Matterhorn, in metres */
             var ticking = false;
+
+            function formatAlt(m) {
+                return String(m).replace(/\B(?=(\d{3})+(?!\d))/g, '’') + ' m';
+            }
+
+            function placeLayer(layer) {
+                layer.style.transform = 'translate(' + (layer._px || 0) + 'px, ' + (layer._sy || 0) + 'px)';
+            }
 
             function onScroll() {
                 var scrolled = window.scrollY;
                 var docHeight = document.documentElement.scrollHeight - window.innerHeight;
-                var pct = docHeight > 0 ? (scrolled / docHeight) * 100 : 0;
-                progressBar.style.width = pct + '%';
+                var pct = docHeight > 0 ? Math.min(Math.max(scrolled / docHeight, 0), 1) : 0;
+                progressBar.style.width = (pct * 100) + '%';
+
+                if (altValue) altValue.textContent = formatAlt(Math.round(pct * SUMMIT));
 
                 headerEl.classList.toggle('scrolled', scrolled > 8);
 
                 if (!prefersReducedMotion && window.innerWidth > 860) {
                     ridgeLayers.forEach(function (layer) {
                         var speed = layerSpeeds[layer.getAttribute('class')] || 0;
-                        var shift = Math.min(scrolled * speed, 30);
-                        layer.style.transform = 'translateY(' + shift + 'px)';
+                        layer._sy = Math.min(scrolled * speed, 30);
+                        placeLayer(layer);
                     });
                 }
 
@@ -1325,6 +1530,87 @@
                 }
             }, { passive: true });
             onScroll();
+
+            /* Living hero: the scene leans gently toward the cursor */
+            var hero = document.getElementById('about');
+            var topo = document.querySelector('.hero-topo');
+            var portraitImg = document.querySelector('.portrait img');
+
+            if (hero && finePointer && !prefersReducedMotion) {
+                var tx = 0, ty = 0, cx = 0, cy = 0, pointerRaf = null;
+
+                function pointerTick() {
+                    cx += (tx - cx) * 0.07;
+                    cy += (ty - cy) * 0.07;
+                    if (topo) {
+                        topo.style.transform = 'translate(' + (cx * -16).toFixed(2) + 'px, ' + (cy * -12).toFixed(2) + 'px)';
+                    }
+                    if (portraitImg) {
+                        portraitImg.style.transform = 'perspective(900px) rotateY(' + (cx * 5).toFixed(2) + 'deg) rotateX(' + (cy * -4).toFixed(2) + 'deg)';
+                    }
+                    ridgeLayers.forEach(function (layer, i) {
+                        layer._px = cx * (i + 1) * -2.2;
+                        placeLayer(layer);
+                    });
+                    if (Math.abs(tx - cx) > 0.001 || Math.abs(ty - cy) > 0.001) {
+                        pointerRaf = requestAnimationFrame(pointerTick);
+                    } else {
+                        pointerRaf = null;
+                    }
+                }
+
+                function wake() {
+                    if (!pointerRaf) pointerRaf = requestAnimationFrame(pointerTick);
+                }
+
+                hero.addEventListener('mousemove', function (e) {
+                    var rect = hero.getBoundingClientRect();
+                    tx = (e.clientX / rect.width) - 0.5;
+                    ty = ((e.clientY - rect.top) / rect.height) - 0.5;
+                    wake();
+                });
+
+                hero.addEventListener('mouseleave', function () {
+                    tx = 0;
+                    ty = 0;
+                    wake();
+                });
+            }
+
+            /* Magnetic buttons */
+            if (finePointer && !prefersReducedMotion) {
+                document.querySelectorAll('.btn').forEach(function (btn) {
+                    btn.addEventListener('mousemove', function (e) {
+                        var rect = btn.getBoundingClientRect();
+                        var dx = (e.clientX - rect.left - rect.width / 2) * 0.16;
+                        var dy = (e.clientY - rect.top - rect.height / 2) * 0.24;
+                        btn.style.transform = 'translate(' + dx.toFixed(1) + 'px, ' + (dy - 2).toFixed(1) + 'px)';
+                    });
+                    btn.addEventListener('mouseleave', function () {
+                        btn.style.transform = '';
+                    });
+                });
+            }
+
+            /* A bird, now and then */
+            var birdsEl = document.querySelector('.hero-birds');
+            if (birdsEl && finePointer && !prefersReducedMotion) {
+                function spawnBird() {
+                    if (document.hidden || window.innerWidth <= 860) return;
+                    if (birdsEl.childElementCount >= 2) return;
+                    var bird = document.createElement('div');
+                    bird.className = 'bird';
+                    bird.style.setProperty('--y', (8 + Math.random() * 34) + '%');
+                    bird.style.setProperty('--dur', (26 + Math.random() * 16) + 's');
+                    bird.innerHTML = '<svg viewBox="0 0 26 12" fill="none" stroke="var(--ink)" stroke-width="1.4" stroke-linecap="round"><path d="M2 9 Q 7.5 2.5, 13 8 Q 18.5 2.5, 24 9"/></svg>';
+                    bird.addEventListener('animationend', function () { bird.remove(); });
+                    birdsEl.appendChild(bird);
+                }
+                setTimeout(spawnBird, 6000);
+                setInterval(function () {
+                    if (Math.random() < 0.55) spawnBird();
+                }, 16000);
+            }
         })();
     </script>
 </body>
