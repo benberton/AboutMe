@@ -318,21 +318,18 @@
         .hero-kicker {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            font-size: 0.8125rem;
-            font-weight: 500;
+            gap: 10px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
             color: var(--muted);
-            border: 1px solid var(--line);
-            background: var(--paper-raise);
-            border-radius: 999px;
-            padding: 6px 14px;
             margin-bottom: var(--space-3);
         }
 
         .hero-kicker .pulse {
             width: 7px;
             height: 7px;
-            border-radius: 50%;
             background: var(--accent);
             flex-shrink: 0;
         }
@@ -366,12 +363,13 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            font-size: 0.875rem;
+            font-size: 0.78rem;
             font-weight: 600;
-            letter-spacing: 0.01em;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
             text-decoration: none;
-            border-radius: 999px;
-            padding: 12px 26px;
+            border-radius: 2px;
+            padding: 13px 24px;
             transition: background var(--t-fast), color var(--t-fast),
                         border-color var(--t-fast), transform var(--t-med),
                         box-shadow var(--t-med);
@@ -422,7 +420,7 @@
             position: absolute;
             inset: 16px -16px -16px 16px;
             border: 1px solid var(--line);
-            border-radius: 14px;
+            border-radius: 4px;
             background-color: var(--paper-raise);
             /* Fine diagonal hatching, like a print margin */
             background-image: repeating-linear-gradient(
@@ -442,7 +440,7 @@
             aspect-ratio: 4 / 5;
             object-fit: cover;
             object-position: center 25%;
-            border-radius: 14px;
+            border-radius: 4px;
             display: block;
             z-index: 1;
             filter: saturate(0.92);
@@ -752,7 +750,7 @@
             gap: 8px;
             padding: 7px 14px;
             border: 1px solid var(--hairline);
-            border-radius: 999px;
+            border-radius: 3px;
             background: rgba(255, 255, 255, 0.72);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
@@ -787,18 +785,42 @@
         }
 
         .school-card {
+            position: relative;
             background: var(--paper-raise);
-            border: 1px solid var(--hairline);
-            border-radius: 16px;
+            border: 1px solid rgba(29, 42, 40, 0.14);
+            border-radius: 3px;
             padding: var(--space-4);
-            box-shadow: var(--shadow-rest);
             transition: transform var(--t-med), box-shadow var(--t-med), border-color var(--t-med);
         }
 
         .school-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--line);
-            box-shadow: var(--shadow-lift);
+            transform: translateY(-2px);
+            border-color: rgba(29, 42, 40, 0.35);
+            box-shadow: 0 10px 28px rgba(29, 42, 40, 0.06);
+        }
+
+        /* Print-proof registration marks, revealed on hover */
+        .school-card::after,
+        .job-card::after,
+        .focus-tile::after {
+            content: '';
+            position: absolute;
+            inset: 7px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity var(--t-med);
+            background:
+                linear-gradient(var(--ink) 0 0) left 0 top 0 / 12px 1px,
+                linear-gradient(var(--ink) 0 0) left 0 top 0 / 1px 12px,
+                linear-gradient(var(--ink) 0 0) right 0 bottom 0 / 12px 1px,
+                linear-gradient(var(--ink) 0 0) right 0 bottom 0 / 1px 12px;
+            background-repeat: no-repeat;
+        }
+
+        .school-card:hover::after,
+        .job-card:hover::after,
+        .focus-tile:hover::after {
+            opacity: 0.3;
         }
 
         .school-head {
@@ -811,7 +833,7 @@
         .logo-tile {
             width: 60px;
             height: 60px;
-            border-radius: 14px;
+            border-radius: 3px;
             background: #fff;
             box-shadow: inset 0 0 0 1px var(--hairline),
                         var(--shadow-rest);
@@ -874,9 +896,8 @@
             color: var(--muted);
             background: var(--paper-raise);
             border: 1px solid var(--hairline);
-            border-radius: 999px;
-            padding: 6px 14px;
-            box-shadow: var(--shadow-rest);
+            border-radius: 3px;
+            padding: 5px 12px;
             transition: color var(--t-fast), border-color var(--t-fast),
                         transform var(--t-med), box-shadow var(--t-med);
         }
@@ -941,18 +962,18 @@
         }
 
         .job-card {
+            position: relative;
             background: var(--paper-raise);
-            border: 1px solid var(--hairline);
-            border-radius: 16px;
+            border: 1px solid rgba(29, 42, 40, 0.14);
+            border-radius: 3px;
             padding: var(--space-4);
-            box-shadow: var(--shadow-rest);
             transition: transform var(--t-med), box-shadow var(--t-med), border-color var(--t-med);
         }
 
         .job-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--line);
-            box-shadow: var(--shadow-lift);
+            transform: translateY(-2px);
+            border-color: rgba(29, 42, 40, 0.35);
+            box-shadow: 0 10px 28px rgba(29, 42, 40, 0.06);
         }
 
         .job-head {
@@ -1003,30 +1024,27 @@
         }
 
         .focus-tile {
+            position: relative;
             background: var(--paper-raise);
-            border: 1px solid var(--hairline);
-            border-radius: 16px;
+            border: 1px solid rgba(29, 42, 40, 0.14);
+            border-radius: 3px;
             padding: var(--space-4);
-            box-shadow: var(--shadow-rest);
             transition: transform var(--t-med), box-shadow var(--t-med), border-color var(--t-med);
         }
 
         .focus-tile:hover {
-            transform: translateY(-4px);
-            border-color: rgba(193, 59, 51, 0.45);
-            box-shadow: var(--shadow-lift);
+            transform: translateY(-2px);
+            border-color: rgba(29, 42, 40, 0.35);
+            box-shadow: 0 10px 28px rgba(29, 42, 40, 0.06);
         }
 
         .focus-icon {
-            width: 46px;
-            height: 46px;
-            border-radius: 12px;
-            background: var(--mist);
+            width: 26px;
+            height: 26px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: var(--space-2);
-            transition: background var(--t-med);
         }
 
         .focus-icon svg {
@@ -1038,10 +1056,6 @@
             stroke-linecap: round;
             stroke-linejoin: round;
             transition: stroke var(--t-med), transform var(--t-med);
-        }
-
-        .focus-tile:hover .focus-icon {
-            background: rgba(193, 59, 51, 0.09);
         }
 
         .focus-tile:hover .focus-icon svg {
@@ -1596,7 +1610,7 @@
                     <rect x="13" y="6" width="6" height="20" fill="#fff"/>
                     <rect x="6" y="13" width="20" height="6" fill="#fff"/>
                 </svg>
-                Zürich, Switzerland · 2026
+                Zürich · 47.3769° N, 8.5417° E · 2026
             </span>
             <a href="#about" class="to-top">Back to top ↑</a>
         </div>
