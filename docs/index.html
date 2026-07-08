@@ -780,8 +780,36 @@
         }
 
         @keyframes para-sway {
-            from { transform: rotate(-6deg); }
-            to   { transform: rotate(6deg); }
+            from { transform: rotate(calc(-1 * var(--sa, 6deg))); }
+            to   { transform: rotate(var(--sa, 6deg)); }
+        }
+
+        /* A hot-air balloon drifting through, slow and stately */
+        .balloon {
+            position: absolute;
+            left: -60px;
+            top: var(--y);
+            width: 30px;
+            opacity: 0;
+            animation: balloon-x var(--dur, 90s) linear forwards;
+        }
+
+        .balloon svg {
+            width: 100%;
+            display: block;
+            animation: balloon-float var(--bf, 9s) ease-in-out infinite alternate;
+        }
+
+        @keyframes balloon-x {
+            0%   { transform: translateX(0); opacity: 0; }
+            4%   { opacity: 0.85; }
+            96%  { opacity: 0.85; }
+            100% { transform: translateX(114vw); opacity: 0; }
+        }
+
+        @keyframes balloon-float {
+            from { transform: translateY(-9px) rotate(-1.5deg); }
+            to   { transform: translateY(9px) rotate(1.5deg); }
         }
 
         /* The gondola rides its cable, all day */
@@ -1928,16 +1956,27 @@
                     if (Math.random() < 0.7) spawnFlock();
                 }, 9000);
 
+                var canopyColors = ['var(--accent)', '#3A4644', '#B8863B'];
+
                 function spawnParaglider() {
                     if (document.hidden || window.innerWidth <= 860) return;
                     if (birdsEl.querySelectorAll('.paraglider').length >= 2) return;
                     var pg = document.createElement('div');
                     pg.className = 'paraglider';
-                    pg.style.setProperty('--y', (6 + Math.random() * 34) + '%');
-                    pg.style.setProperty('--dur', (40 + Math.random() * 20) + 's');
-                    pg.style.setProperty('--drop', Math.round(40 + Math.random() * 50) + 'px');
-                    pg.style.setProperty('--sway', (4 + Math.random() * 2).toFixed(1) + 's');
-                    pg.innerHTML = '<svg viewBox="0 0 30 22" fill="none"><path d="M3 8 Q 15 -1, 27 8" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/><path d="M5 8.5 L14 16 M25 8.5 L16 16" stroke="var(--ink)" stroke-width="0.75" opacity="0.5"/><circle cx="15" cy="17.5" r="1.8" fill="var(--ink)" opacity="0.7"/></svg>';
+                    /* Some launch mid-sky (fading in over a slope), others
+                       drift in from off-screen */
+                    if (Math.random() < 0.4) {
+                        pg.style.left = (5 + Math.random() * 30) + '%';
+                    }
+                    pg.style.width = Math.round(22 + Math.random() * 12) + 'px';
+                    pg.style.setProperty('--y', (4 + Math.random() * 38) + '%');
+                    pg.style.setProperty('--dur', (40 + Math.random() * 24) + 's');
+                    /* Negative drop = riding a thermal upward */
+                    pg.style.setProperty('--drop', Math.round(-30 + Math.random() * 115) + 'px');
+                    pg.style.setProperty('--sway', (3.6 + Math.random() * 2.6).toFixed(1) + 's');
+                    pg.style.setProperty('--sa', (3.5 + Math.random() * 4.5).toFixed(1) + 'deg');
+                    var canopy = canopyColors[Math.floor(Math.random() * canopyColors.length)];
+                    pg.innerHTML = '<svg viewBox="0 0 30 22" fill="none"><path d="M3 8 Q 15 -1, 27 8" stroke="' + canopy + '" stroke-width="2" stroke-linecap="round"/><path d="M5 8.5 L14 16 M25 8.5 L16 16" stroke="var(--ink)" stroke-width="0.75" opacity="0.5"/><circle cx="15" cy="17.5" r="1.8" fill="var(--ink)" opacity="0.7"/></svg>';
                     pg.addEventListener('animationend', function () { pg.remove(); });
                     birdsEl.appendChild(pg);
                 }
@@ -1945,6 +1984,29 @@
                 setInterval(function () {
                     if (Math.random() < 0.5) spawnParaglider();
                 }, 28000);
+
+                /* A hot-air balloon, rare enough that spotting one is luck */
+                function spawnBalloon() {
+                    if (document.hidden || window.innerWidth <= 860) return;
+                    if (birdsEl.querySelector('.balloon')) return;
+                    var b = document.createElement('div');
+                    b.className = 'balloon';
+                    b.style.setProperty('--y', (10 + Math.random() * 26) + '%');
+                    b.style.setProperty('--dur', (75 + Math.random() * 30) + 's');
+                    b.style.setProperty('--bf', (8 + Math.random() * 4).toFixed(1) + 's');
+                    b.innerHTML = '<svg viewBox="0 0 30 40" fill="none">'
+                        + '<path d="M15 2 C 24 2, 28 9, 28 15 C 28 22, 21 26, 18 29 L12 29 C 9 26, 2 22, 2 15 C 2 9, 6 2, 15 2 Z" fill="var(--accent)" opacity="0.8"/>'
+                        + '<path d="M11 3 C 8 9, 8 22, 12 28.6 M19 3 C 22 9, 22 22, 18 28.6" stroke="rgba(250, 250, 247, 0.55)" stroke-width="1"/>'
+                        + '<path d="M12 29 L13.5 34 M18 29 L16.5 34" stroke="var(--ink)" stroke-width="0.7" opacity="0.6"/>'
+                        + '<rect x="12" y="34" width="6" height="4.5" rx="1" fill="#3A4644" opacity="0.9"/>'
+                        + '</svg>';
+                    b.addEventListener('animationend', function () { b.remove(); });
+                    birdsEl.appendChild(b);
+                }
+                setTimeout(spawnBalloon, 18000);
+                setInterval(function () {
+                    if (Math.random() < 0.35) spawnBalloon();
+                }, 55000);
             }
         })();
     </script>
