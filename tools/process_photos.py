@@ -32,8 +32,8 @@ TARGETS = {
     "04-ghana":        (2000, 82),
     "05-miami":        (2000, 82),
     "06-jaipur":       (2200, 82),
-    "07-aescher":      (2000, 82),
-    "08-lucerne":      (2000, 82),
+    "07-seealpsee":    (2000, 82),
+    "08-saxer-luecke": (2200, 82),
     "09-paris":        (2200, 82),
 }
 EXTS = (".heic", ".heif", ".jpg", ".jpeg", ".png", ".tif", ".tiff", ".webp")
