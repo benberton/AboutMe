@@ -45,3 +45,6 @@ build/
 # Broken/backup HTML files
 *.broken
 *_backup.html
+
+# Unoptimized source photos (kept local, not deployed)
+docs/images/gallery/_raw/
