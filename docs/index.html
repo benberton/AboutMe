@@ -101,10 +101,15 @@
 
         @media (max-width: 760px) {
             body { overflow: auto; }
-            .stage { grid-template-rows: auto 1fr; min-height: 100vh; min-height: 100dvh; }
-            .panel { align-items: flex-start; padding-bottom: clamp(30px, 5vh, 44px); }
-            .mast { grid-template-columns: 1fr; gap: 20px; }
-            .field { min-height: 300px; }
+            /* natural flow on phones — content first, then a field band */
+            .stage { display: block; height: auto; min-height: 0; }
+            .panel {
+                min-height: 0; align-items: flex-start;
+                padding: clamp(34px, 7vh, 60px) 24px clamp(26px, 4vh, 38px);
+            }
+            .mast { grid-template-columns: 1fr; gap: 18px; }
+            .portrait { width: clamp(150px, 42vw, 188px); }
+            .field { height: 42vh; min-height: 300px; }
         }
 
         @media (prefers-reduced-motion: reduce) {
