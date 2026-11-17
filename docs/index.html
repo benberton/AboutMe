@@ -66,10 +66,11 @@
         }
         .col-left { display: flex; flex-direction: column; align-items: flex-start; }
         .portrait {
-            width: clamp(150px, 15vw, 200px); aspect-ratio: 4 / 5; height: auto;
-            object-fit: cover; object-position: center 20%;
-            border-radius: 14px; display: block; margin-bottom: clamp(14px, 2vh, 20px);
-            box-shadow: 0 1px 2px rgba(17,17,17,0.06), 0 12px 32px rgba(17,17,17,0.07);
+            width: clamp(156px, 16vw, 208px); aspect-ratio: 4 / 5; height: auto;
+            object-fit: cover; object-position: center 16%;
+            border-radius: 12px; display: block; margin-bottom: clamp(16px, 2.2vh, 22px);
+            box-shadow: 0 1px 2px rgba(17,17,17,0.05), 0 6px 16px rgba(17,17,17,0.06);
+            outline: 1px solid rgba(17,17,17,0.09); outline-offset: -1px;
         }
         .brand { font-size: clamp(1.2rem, 1.6vw, 1.45rem); font-weight: 700; letter-spacing: -0.01em; }
 
@@ -79,18 +80,20 @@
         }
         .bio .soft { color: var(--muted); }
 
-        /* Inline links — red highlighter sweep on hover */
-        .links { margin-top: clamp(18px, 3vh, 28px); display: flex; flex-wrap: wrap; gap: 8px 22px; }
+        /* Buttons — one red primary (CV), two quiet outlined links */
+        .links { margin-top: clamp(20px, 3.2vh, 30px); display: flex; flex-wrap: wrap; gap: 10px 12px; }
         .ilink {
-            position: relative; text-decoration: none; color: var(--ink);
-            font-size: 0.9375rem; font-weight: 600; padding: 0 1px; isolation: isolate;
+            display: inline-flex; align-items: center; gap: 7px; line-height: 1;
+            font-size: 0.875rem; font-weight: 500; text-decoration: none; color: var(--ink);
+            background: transparent; border: 1px solid var(--line); border-radius: 9px;
+            padding: 10px 15px; transition: background var(--t), border-color var(--t), color var(--t);
         }
-        .ilink::before {
-            content: ''; position: absolute; left: -0.12em; right: -0.12em; bottom: 0.03em;
-            height: 0.12em; background: var(--accent); z-index: -1; transition: height var(--t);
-        }
-        .ilink:hover::before, .ilink:focus-visible::before { height: 0.5em; }
-        .ilink.a { color: var(--accent); font-weight: 700; }
+        .ilink .arw { color: var(--muted); font-size: 0.95em; transition: transform var(--t), color var(--t); }
+        .ilink:hover, .ilink:focus-visible { background: rgba(17,17,17,0.045); border-color: rgba(17,17,17,0.26); }
+        .ilink:hover .arw, .ilink:focus-visible .arw { transform: translate(2px,-2px); color: var(--ink); }
+        .ilink.a { background: var(--accent); color: #fff; border-color: var(--accent); }
+        .ilink.a .arw { color: #fff; }
+        .ilink.a:hover, .ilink.a:focus-visible { background: #A7322A; border-color: #A7322A; }
 
         /* ---- Bottom: shifting colour blocks ---- */
         .field { position: relative; overflow: hidden; background: #efe9df; border-top: 1px solid var(--line); }
@@ -137,9 +140,9 @@
                         public impact.
                     </p>
                     <div class="links" data-reveal style="transition-delay: 150ms;">
-                        <a class="ilink a" href="Ben_Berton_CV.pdf" target="_blank" rel="noopener">Download CV</a>
-                        <a class="ilink" href="https://github.com/benberton" target="_blank" rel="noopener">GitHub</a>
-                        <a class="ilink" href="https://ch.linkedin.com/in/ben-berton" target="_blank" rel="noopener">LinkedIn</a>
+                        <a class="ilink a" href="Ben_Berton_CV.pdf" target="_blank" rel="noopener">Download CV <span class="arw" aria-hidden="true">↗</span></a>
+                        <a class="ilink" href="https://ch.linkedin.com/in/ben-berton" target="_blank" rel="noopener">LinkedIn <span class="arw" aria-hidden="true">↗</span></a>
+                        <a class="ilink" href="https://github.com/benberton" target="_blank" rel="noopener">GitHub <span class="arw" aria-hidden="true">↗</span></a>
                     </div>
                 </div>
             </div>
